@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Exercise Guide – Udyam</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;800;900&family=OutUdyam:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Udyam Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Theme Initialization (prevents flash) -->
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('Udyam_theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-page="workout">
+
+  <!-- Navigation Bar -->
+  <nav id="navbar" class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+        <div>Udyam<span>AI</span></div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="ai-coach.html" class="nav-link">AI Coach</a>
+        <a href="workout.html" class="nav-link active">Workout</a>
+        <a href="nutrition.html" class="nav-link">Nutrition</a>
+        <a href="challenges.html" class="nav-link">Challenges</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </div>
+
+      <div class="flex" style="align-items:center; gap:14px">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="profile.html" class="badge badge-blue" style="text-transform:none;font-size:0.85rem">
+          <i class="fa-solid fa-user"></i> <span class="nav-user-name">Athlete</span>
+        </a>
+        <button id="hamburger" class="hamburger" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-nav" class="mobile-nav">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="ai-coach.html" class="nav-link">AI Coach</a>
+    <a href="workout.html" class="nav-link active">Workout</a>
+    <a href="nutrition.html" class="nav-link">Nutrition</a>
+    <a href="challenges.html" class="nav-link">Challenges</a>
+    <a href="profile.html" class="nav-link">Profile</a>
+    <button class="theme-toggle btn btn-sm btn-outline" style="width:80%;max-width:320px;margin-top:10px" aria-label="Toggle theme">
+      <i class="fa-solid fa-moon"></i> <span class="theme-toggle-text">Dark Mode</span>
+    </button>
+  </div>
+
+  <!-- Page Header -->
+  <header class="page-hero">
+    <div class="container">
+      <span class="badge badge-green mb-2"><i class="fa-solid fa-bolt"></i> Adaptive Neural Generator</span>
+      <h1 class="page-hero-title">Daily Personalized Exercise Guide</h1>
+      <p class="page-hero-sub">Configure your workout parameters to synthesize an interactive, step-by-step training protocol with form tracking.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="section-sm">
+    <div class="container">
+      
+      <!-- Workout Customization Form -->
+      <section class="card mb-8">
+        <div class="flex-between mb-6">
+          <div>
+            <h2 class="font-display" style="font-size:1.35rem;font-weight:800">Customize Your Training Session</h2>
+            <p style="font-size:0.86rem;color:var(--clr-text-muted)">Calibrated to your goals, available equipment, and time availability</p>
+          </div>
+          <span class="badge badge-blue">AI Protocol Builder</span>
+        </div>
+
+        <form id="workout-gen-form">
+          <div class="form-grid-4 mb-6">
+            <!-- Udyamness Goal -->
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="w-goal"><i class="fa-solid fa-bullseye"></i> Udyamness Goal</label>
+              <select id="w-goal" class="form-select">
+                <option value="Weight Loss">Weight Loss (HIIT/Cardio)</option>
+                <option value="Muscle Building">Muscle Building (Strength)</option>
+                <option value="General Udyamness" selected>General Udyamness (Conditioning)</option>
+                <option value="Sports Performance">Sports Performance (Power)</option>
+                <option value="Flexibility">Flexibility (Mobility/Yoga)</option>
+              </select>
+            </div>
+
+            <!-- Difficulty Level -->
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="w-diff"><i class="fa-solid fa-layer-group"></i> Difficulty Tier</label>
+              <select id="w-diff" class="form-select">
+                <option value="Beginner">Beginner (Foundation)</option>
+                <option value="Intermediate" selected>Intermediate (Standard)</option>
+                <option value="Advanced">Advanced (High Intensity)</option>
+              </select>
+            </div>
+
+            <!-- Workout Duration -->
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="w-dur"><i class="fa-solid fa-clock"></i> Duration</label>
+              <select id="w-dur" class="form-select">
+                <option value="15">15 Minutes (Express)</option>
+                <option value="30">30 Minutes (Standard)</option>
+                <option value="45" selected>45 Minutes (Full Session)</option>
+                <option value="60">60 Minutes (Elite Endurance)</option>
+              </select>
+            </div>
+
+            <!-- Equipment -->
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="w-equip"><i class="fa-solid fa-dumbbell"></i> Available Equipment</label>
+              <select id="w-equip" class="form-select">
+                <option value="No Equipment">No Equipment (Bodyweight)</option>
+                <option value="Minimal (Dumbbells/Bands)" selected>Minimal (Dumbbells/Bands)</option>
+                <option value="Full Gym">Full Gym Access</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg btn-full">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Generate AI Workout Plan
+          </button>
+        </form>
+      </section>
+
+      <!-- Exercise Coach (Live Posture Assistance Feature) -->
+      <section class="card exercise-coach-card mb-8">
+        <div class="flex-between mb-4" style="flex-wrap:wrap;gap:12px">
+          <div>
+            <div class="flex gap-2" style="align-items:center">
+              <span class="badge badge-green"><i class="fa-solid fa-camera"></i> Live Vision AI</span>
+              <h2 class="font-display" style="font-size:1.35rem;font-weight:800;margin:0">Exercise Coach</h2>
+            </div>
+            <p style="font-size:0.86rem;color:var(--clr-text-muted);margin-top:4px">
+              Real-time camera posture assistance and live form evaluation as you perform your workout.
+            </p>
+          </div>
+
+          <!-- Exercise Selector -->
+          <div class="flex gap-3" style="align-items:center">
+            <label for="coach-exercise-select" style="font-size:0.85rem;font-weight:600;color:var(--clr-text-muted);white-space:nowrap">
+              Target Exercise:
+            </label>
+            <select id="coach-exercise-select" class="form-select" style="padding:7px 14px;font-size:0.88rem;min-width:180px">
+              <option value="Squats" selected>Squats (Air / Weighted)</option>
+              <option value="Push-ups">Push-ups (Standard / Knee)</option>
+              <option value="Lunges">Lunges (Reverse / Walking)</option>
+              <option value="Plank">Plank (Forearm Hold)</option>
+              <option value="Jumping Jacks">Jumping Jacks</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid" style="grid-template-columns:1.5fr 1fr;gap:24px;align-items:start" id="exercise-coach-layout">
+          
+          <!-- Left: Live Camera Stream HUD Area -->
+          <div class="exercise-coach-view" id="coach-camera-container">
+            
+            <!-- HUD Bracket Corners -->
+            <div class="hud-corner hud-c-tl"></div>
+            <div class="hud-corner hud-c-tr"></div>
+            <div class="hud-corner hud-c-bl"></div>
+            <div class="hud-corner hud-c-br"></div>
+
+            <!-- Idle State (Before Camera Start) -->
+            <div id="coach-camera-idle" class="text-center" style="padding:36px 20px">
+              <div style="width:76px;height:76px;border-radius:50%;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.35);color:var(--clr-blue-light);display:flex;align-items:center;justify-content:center;font-size:2.2rem;margin:0 auto 16px">
+                <i class="fa-solid fa-camera"></i>
+              </div>
+              <h3 class="font-display" style="font-size:1.25rem;font-weight:800;margin-bottom:8px">Exercise Coach Standby</h3>
+              <p style="color:var(--clr-text-muted);font-size:0.88rem;max-width:380px;margin:0 auto 20px">
+                Position your device so your full body is visible in the frame, then start your session for live posture feedback.
+              </p>
+              <button type="button" class="btn btn-primary" id="btn-start-exercise-coach">
+                <i class="fa-solid fa-play"></i> Start Exercise Coach
+              </button>
+            </div>
+
+            <!-- Active Live Camera Feed -->
+            <div id="coach-camera-active" class="hidden" style="width:100%;height:100%;min-height:380px;position:relative;display:flex;align-items:center;justify-content:center">
+              <video id="exercise-coach-video" autoplay playsinline muted></video>
+              
+              <!-- Scan line overlay -->
+              <div class="scan-line" style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--clr-green-neon);box-shadow:0 0 10px var(--clr-green-neon);animation:scanHud 3s infinite linear;pointer-events:none"></div>
+
+              <!-- Top Stream Overlay Info -->
+              <div class="exercise-coach-hud-overlay">
+                <div class="flex-between" style="width:100%">
+                  <div class="exercise-coach-status-pill">
+                    <span class="pulse-dot" style="width:8px;height:8px;background:var(--clr-green-neon);border-radius:50%;display:inline-block"></span>
+                    <span id="coach-status-text">Form Tracking Active</span>
+                  </div>
+                  <div class="exercise-coach-status-pill">
+                    <i class="fa-solid fa-stopwatch" style="color:var(--clr-green-neon)"></i>
+                    <span id="coach-session-timer">00:00</span>
+                  </div>
+                </div>
+
+                <!-- Bottom Pose Calibration Pill -->
+                <div style="align-self:flex-start">
+                  <span class="badge badge-blue" id="coach-active-exercise-badge" style="font-size:0.75rem">
+                    Squats Protocol
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right: Live Posture Feedback & Exercise Perfectness Percentage -->
+          <div class="flex flex-col gap-4">
+            
+            <!-- Exercise Perfectness Card -->
+            <div class="card card-glow-green" style="padding:20px;margin-bottom:0">
+              <div class="flex-between mb-2">
+                <div style="font-family:var(--font-display);font-weight:700;font-size:0.95rem;color:var(--clr-text-muted);text-transform:uppercase;letter-spacing:0.5px">
+                  Exercise Perfectness
+                </div>
+                <span class="badge badge-green" id="coach-score-rating-badge">Ready</span>
+              </div>
+
+              <div class="flex gap-4 mb-3" style="align-items:baseline">
+                <span class="perfectness-score-val" id="coach-perfectness-val" style="color:var(--clr-green-neon)">--%</span>
+                <span style="font-weight:700;font-size:1.1rem" id="coach-perfectness-label">Perfect</span>
+              </div>
+
+              <!-- Visual Progress Indicator -->
+              <div class="progress-wrap mb-4" style="height:10px">
+                <div class="progress-bar" id="coach-perfectness-bar" style="width:0%;background:var(--grad-green)"></div>
+              </div>
+
+              <!-- Dynamic Posture Feedback Banner -->
+              <div id="coach-posture-feedback-box" style="background:rgba(255,255,255,0.04);border-left:4px solid var(--clr-blue);border-radius:var(--radius-sm);padding:12px 14px;font-size:0.88rem;line-height:1.4">
+                <div class="flex gap-2" style="align-items:center;font-weight:700;color:var(--clr-text)" id="coach-feedback-headline">
+                  <i class="fa-solid fa-circle-info" style="color:var(--clr-blue-light)"></i> Posture Guidance
+                </div>
+                <div id="coach-feedback-text" style="color:var(--clr-text-muted);margin-top:4px">
+                  Click "Start Exercise Coach" to initialize camera posture tracking for your selected exercise.
+                </div>
+              </div>
+            </div>
+
+            <!-- Joint & Alignment Checkpoints -->
+            <div class="card" style="padding:18px;margin-bottom:0">
+              <div style="font-family:var(--font-display);font-weight:700;font-size:0.9rem;margin-bottom:12px;display:flex;align-items:center;gap:8px">
+                <i class="fa-solid fa-list-check" style="color:var(--clr-blue-light)"></i> Biomechanical Checkpoints
+              </div>
+
+              <div id="coach-checkpoints-list" class="flex flex-col gap-2">
+                <div class="flex-between" style="font-size:0.84rem;padding:6px 10px;background:rgba(255,255,255,0.02);border-radius:var(--radius-sm);border:1px solid var(--clr-border)">
+                  <span style="color:var(--clr-text-muted)">Spine Alignment</span>
+                  <span class="font-tech" style="color:var(--clr-green);font-weight:700" id="cp-spine">Neutral ✅</span>
+                </div>
+                <div class="flex-between" style="font-size:0.84rem;padding:6px 10px;background:rgba(255,255,255,0.02);border-radius:var(--radius-sm);border:1px solid var(--clr-border)">
+                  <span style="color:var(--clr-text-muted)">Joint Tracking</span>
+                  <span class="font-tech" style="color:var(--clr-blue-light);font-weight:700" id="cp-joint">Calibrated 🎯</span>
+                </div>
+                <div class="flex-between" style="font-size:0.84rem;padding:6px 10px;background:rgba(255,255,255,0.02);border-radius:var(--radius-sm);border:1px solid var(--clr-border)">
+                  <span style="color:var(--clr-text-muted)">Range of Motion</span>
+                  <span class="font-tech" style="color:var(--clr-purple-light);font-weight:700" id="cp-rom">Full Depth ⚡</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Session Controls -->
+            <div class="flex gap-3">
+              <button type="button" class="btn btn-fire btn-full hidden" id="btn-stop-exercise-coach">
+                <i class="fa-solid fa-stop"></i> Stop Exercise Coach
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Loading State Animation -->
+      <div id="workout-loading" class="hidden text-center" style="padding:60px 20px">
+        <div class="spinner spinner-lg" style="margin:0 auto 20px"></div>
+        <h3 class="font-display" style="font-size:1.3rem;font-weight:700;color:var(--clr-blue-light)">Synthesizing Tailored Biomechanics Routine...</h3>
+        <p style="color:var(--clr-text-muted);font-size:0.9rem">Matching target muscle groups, rest intervals, and volume parameters</p>
+      </div>
+
+      <!-- Generated Workout Results Plan (Default visible or populated dynamically) -->
+      <section id="workout-results">
+        
+        <!-- Summary Header Banner -->
+        <div class="card card-glow-green mb-6">
+          <div class="flex-between" style="flex-wrap:wrap;gap:16px;margin-bottom:20px">
+            <div>
+              <span class="badge badge-green" style="margin-bottom:6px">Active Protocol</span>
+              <h2 class="font-display" id="w-plan-title" style="font-size:1.6rem;font-weight:800">
+                General Udyamness Plan (Intermediate)
+              </h2>
+              <p style="font-size:0.88rem;color:var(--clr-text-muted)" id="w-plan-meta">
+                7 Exercises · ~45 Mins · 210 kcal · Minimal Equipment
+              </p>
+            </div>
+
+            <div class="flex gap-2">
+              <button id="btn-posture-quick-check" class="btn btn-sm btn-outline">
+                <i class="fa-solid fa-person-rays"></i> AI Posture Check
+              </button>
+            </div>
+          </div>
+
+          <!-- Real-Time Interactive Completion Progress Bar -->
+          <div style="background:rgba(0,0,0,0.35);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:16px 20px">
+            <div class="progress-label">
+              <span id="w-progress-count-text">0 of 7 Completed</span>
+              <span id="w-progress-pct-text" style="font-family:var(--font-tech);color:var(--clr-green);font-weight:700">0%</span>
+            </div>
+            <div class="progress-wrap">
+              <div class="progress-bar" id="w-progress-bar-fill" style="width:0%;background:var(--grad-green)"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Posture Report Placeholder -->
+        <div id="w-posture-report-box" class="hidden mb-6"></div>
+
+        <!-- Exercises Container (Populated via JS) -->
+        <div id="w-exercise-container">
+          <!-- Warm-up Phase -->
+          <div class="exercise-phase-block">
+            <h3 class="phase-header-title">🔥 Warm-up</h3>
+            <div>
+              <div class="exercise-card-item" id="ex-card-warmup-0">
+                <div class="ex-num-badge">1</div>
+                <div class="ex-content-box">
+                  <div class="ex-name-title">Jump Rope / Light Jog</div>
+                  <div class="ex-meta-info">3 mins · ~25 kcal &bull; <span style="color:var(--clr-text-dim)">Elevate heart rate and core temperature.</span></div>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="markExerciseDone('warmup', 0, 25)">
+                  <i class="fa-solid fa-check"></i> Complete
+                </button>
+              </div>
+
+              <div class="exercise-card-item" id="ex-card-warmup-1">
+                <div class="ex-num-badge">2</div>
+                <div class="ex-content-box">
+                  <div class="ex-name-title">Torso Twists & Hip Openers</div>
+                  <div class="ex-meta-info">2 mins · ~15 kcal &bull; <span style="color:var(--clr-text-dim)">Mobilize spinal column and pelvis.</span></div>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="markExerciseDone('warmup', 1, 15)">
+                  <i class="fa-solid fa-check"></i> Complete
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Workout Phase -->
+          <div class="exercise-phase-block">
+            <h3 class="phase-header-title">💪 Main Workout</h3>
+            <div>
+              <div class="exercise-card-item" id="ex-card-main-0">
+                <div class="ex-num-badge">3</div>
+                <div class="ex-content-box">
+                  <div class="ex-name-title">Air Squats</div>
+                  <div class="ex-meta-info">3 sets × 15 reps · ~40 kcal &bull; <span style="color:var(--clr-text-dim)">Sit back into heels, knees tracking toes.</span></div>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="markExerciseDone('main', 0, 40)">
+                  <i class="fa-solid fa-check"></i> Complete
+                </button>
+              </div>
+
+              <div class="exercise-card-item" id="ex-card-main-1">
+                <div class="ex-num-badge">4</div>
+                <div class="ex-content-box">
+                  <div class="ex-name-title">Push-Ups (Standard / Knee)</div>
+                  <div class="ex-meta-info">3 sets × 12 reps · ~35 kcal &bull; <span style="color:var(--clr-text-dim)">Rigid plank line from head to heels.</span></div>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="markExerciseDone('main', 1, 35)">
+                  <i class="fa-solid fa-check"></i> Complete
+                </button>
+              </div>
+
+              <div class="exercise-card-item" id="ex-card-main-2">
+                <div class="ex-num-badge">5</div>
+                <div class="ex-content-box">
+                  <div class="ex-name-title">Reverse Walking Lunges</div>
+                  <div class="ex-meta-info">3 sets × 12 reps/leg · ~45 kcal &bull; <span style="color:var(--clr-text-dim)">Step backwards with controlled deceleration.</span></div>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="markExerciseDone('main', 2, 45)">
+                  <i class="fa-solid fa-check"></i> Complete
+                </button>
+              </div>
+
+              <div class="exercise-card-item" id="ex-card-main-3">
+                <div class="ex-num-badge">6</div>
+                <div class="ex-content-box">
+                  <div class="ex-name-title">Forearm Plank Hold</div>
+                  <div class="ex-meta-info">3 sets × 45 secs · ~30 kcal &bull; <span style="color:var(--clr-text-dim)">Engage transverse abdominis and glutes.</span></div>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="markExerciseDone('main', 3, 30)">
+                  <i class="fa-solid fa-check"></i> Complete
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cool Down Phase -->
+          <div class="exercise-phase-block">
+            <h3 class="phase-header-title">🧘 Cool Down</h3>
+            <div>
+              <div class="exercise-card-item" id="ex-card-cooldown-0">
+                <div class="ex-num-badge">7</div>
+                <div class="ex-content-box">
+                  <div class="ex-name-title">Cobra to Child’s Pose Flow</div>
+                  <div class="ex-meta-info">3 mins · ~10 kcal &bull; <span style="color:var(--clr-text-dim)">Gentle spinal extension and flexion.</span></div>
+                </div>
+                <button class="btn btn-sm btn-primary" onclick="markExerciseDone('cooldown', 0, 10)">
+                  <i class="fa-solid fa-check"></i> Complete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+          <div>Udyam<span>AI</span></div>
+        </a>
+        <p>Personalized workout routines generated for every Udyamness tier.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="ai-coach.html">AI Coach</a></li>
+          <li><a href="workout.html">Daily Workouts</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Training Goals</h4>
+        <ul>
+          <li><a href="#">Weight Loss HIIT</a></li>
+          <li><a href="#">Hypertrophy Building</a></li>
+          <li><a href="#">Cardio Endurance</a></li>
+          <li><a href="#">Joint Flexibility</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="nutrition.html">Nutrition Blueprint</a></li>
+          <li><a href="challenges.html">Weekly Challenges</a></li>
+          <li><a href="profile.html">Profile Settings</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 Udyam. All rights reserved.</div>
+      <div>Dynamic Routine Generator Active</div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

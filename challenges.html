@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Challenges & Rewards – Udyam</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;800;900&family=OutUdyam:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Udyam Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Theme Initialization (prevents flash) -->
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('Udyam_theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-page="challenges">
+
+  <!-- Navigation Bar -->
+  <nav id="navbar" class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+        <div>Udyam<span>AI</span></div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="ai-coach.html" class="nav-link">AI Coach</a>
+        <a href="workout.html" class="nav-link">Workout</a>
+        <a href="nutrition.html" class="nav-link">Nutrition</a>
+        <a href="challenges.html" class="nav-link active">Challenges</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </div>
+
+      <div class="flex" style="align-items:center; gap:14px">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="profile.html" class="badge badge-blue" style="text-transform:none;font-size:0.85rem">
+          <i class="fa-solid fa-user"></i> <span class="nav-user-name">Athlete</span>
+        </a>
+        <button id="hamburger" class="hamburger" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-nav" class="mobile-nav">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="ai-coach.html" class="nav-link">AI Coach</a>
+    <a href="workout.html" class="nav-link">Workout</a>
+    <a href="nutrition.html" class="nav-link">Nutrition</a>
+    <a href="challenges.html" class="nav-link active">Challenges</a>
+    <a href="profile.html" class="nav-link">Profile</a>
+    <button class="theme-toggle btn btn-sm btn-outline" style="width:80%;max-width:320px;margin-top:10px" aria-label="Toggle theme">
+      <i class="fa-solid fa-moon"></i> <span class="theme-toggle-text">Dark Mode</span>
+    </button>
+  </div>
+
+  <!-- Page Header -->
+  <header class="page-hero">
+    <div class="container">
+      <span class="badge badge-blue mb-2"><i class="fa-solid fa-trophy"></i> Gamified Athletic Progression</span>
+      <h1 class="page-hero-title">Weekly Challenges & Rewards</h1>
+      <p class="page-hero-sub">Complete athletic quests, earn reward points, unlock prestige badges, and redeem discounts from premier sports brands.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="section-sm">
+    <div class="container">
+      
+      <!-- User Gamification Level Card -->
+      <section class="card card-glow-purple mb-8">
+        <div class="flex-between" style="flex-wrap:wrap;gap:20px;margin-bottom:20px">
+          <div>
+            <span class="badge badge-purple" style="margin-bottom:6px">Your Athletic Standing</span>
+            <h2 class="font-display" style="font-size:1.6rem;font-weight:800">
+              Tier Status: <span id="ch-level-title" style="color:var(--clr-purple-light)">Amateur Enthusiast</span>
+            </h2>
+            <p style="font-size:0.86rem;color:var(--clr-text-muted)">Earn points by logging workouts, coaching sessions, and hitting milestones.</p>
+          </div>
+
+          <div style="text-align:right">
+            <div style="font-size:0.8rem;color:var(--clr-text-dim);text-transform:uppercase;font-weight:700">Total Reward Balance</div>
+            <div style="font-family:var(--font-tech);font-size:2.2rem;font-weight:900;color:var(--clr-orange)" id="ch-total-points">
+              1,250 pts
+            </div>
+          </div>
+        </div>
+
+        <!-- Tier Progress Bar -->
+        <div style="background:rgba(0,0,0,0.35);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:16px 20px">
+          <div class="flex-between" style="font-size:0.82rem;margin-bottom:6px">
+            <span>Progress to Next Athletic Tier</span>
+            <span style="color:var(--clr-purple-light);font-weight:700">Next: Pro Competitor (1,500 pts)</span>
+          </div>
+          <div class="progress-wrap">
+            <div class="progress-bar" id="ch-level-bar-fill" style="width:75%;background:var(--grad-fire)"></div>
+          </div>
+          <div class="flex-between" style="font-size:0.75rem;color:var(--clr-text-dim);margin-top:8px">
+            <span>Rookie (0)</span>
+            <span>Amateur (500)</span>
+            <span>Pro (1500)</span>
+            <span>Elite (3000)</span>
+            <span>Legend (6000+)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Weekly Challenges Section -->
+      <section class="mb-8">
+        <div class="flex-between mb-4">
+          <div>
+            <h3 class="font-display" style="font-size:1.35rem;font-weight:800">Active Weekly Challenges</h3>
+            <p style="font-size:0.86rem;color:var(--clr-text-muted)">Resets every Sunday at midnight &bull; Click "Log Progress" to advance</p>
+          </div>
+          <span class="badge badge-fire"><i class="fa-solid fa-clock"></i> 4 Days Remaining</span>
+        </div>
+
+        <div class="challenges-grid" id="challenges-list-grid">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+      <!-- Badges Showcase & Leaderboard Grid -->
+      <section class="grid gap-6 mb-8" style="grid-template-columns: 1.2fr 1fr">
+        
+        <!-- Interactive Leaderboard -->
+        <div class="card">
+          <div class="flex-between mb-4">
+            <div>
+              <h3 class="font-display" style="font-size:1.25rem;font-weight:800">Global Athlete Leaderboard</h3>
+              <p style="font-size:0.82rem;color:var(--clr-text-muted)">Top performers across all 50+ athletic disciplines</p>
+            </div>
+            <span class="badge badge-blue">Season 4</span>
+          </div>
+
+          <div class="leaderboard-container" id="challenges-leaderboard-list">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- Achievement Badges -->
+        <div class="card">
+          <div class="flex-between mb-4">
+            <h3 class="font-display" style="font-size:1.25rem;font-weight:800">Prestige Badges</h3>
+            <span class="badge badge-green">3 Unlocked</span>
+          </div>
+
+          <div class="grid gap-4" style="grid-template-columns: 1fr 1fr">
+            <div class="card" style="padding:16px;text-align:center;border-color:var(--clr-border-glow)">
+              <div style="font-size:2.2rem;margin-bottom:6px">🌱</div>
+              <div style="font-family:var(--font-display);font-weight:700;font-size:0.9rem">Beginner</div>
+              <div style="font-size:0.75rem;color:var(--clr-text-muted)">Joined Udyam</div>
+              <span class="badge badge-green mt-2" style="font-size:0.68rem">UNLOCKED</span>
+            </div>
+
+            <div class="card" style="padding:16px;text-align:center;border-color:var(--clr-border-glow)">
+              <div style="font-size:2.2rem;margin-bottom:6px">⭐</div>
+              <div style="font-family:var(--font-display);font-weight:700;font-size:0.9rem">Rising Star</div>
+              <div style="font-size:0.75rem;color:var(--clr-text-muted)">5 Workouts Done</div>
+              <span class="badge badge-green mt-2" style="font-size:0.68rem">UNLOCKED</span>
+            </div>
+
+            <div class="card" style="padding:16px;text-align:center;border-color:var(--clr-border-glow)">
+              <div style="font-size:2.2rem;margin-bottom:6px">⚔️</div>
+              <div style="font-family:var(--font-display);font-weight:700;font-size:0.9rem">Udyamness Warrior</div>
+              <div style="font-size:0.75rem;color:var(--clr-text-muted)">5-Day Streak</div>
+              <span class="badge badge-green mt-2" style="font-size:0.68rem">UNLOCKED</span>
+            </div>
+
+            <div class="card" style="padding:16px;text-align:center;opacity:0.45">
+              <div style="font-size:2.2rem;margin-bottom:6px">🏆</div>
+              <div style="font-family:var(--font-display);font-weight:700;font-size:0.9rem">Sports Champion</div>
+              <div style="font-size:0.75rem;color:var(--clr-text-muted)">Win All Challenges</div>
+              <span class="badge badge-outline mt-2" style="font-size:0.68rem">LOCKED</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Partner Brand Rewards Section -->
+      <section>
+        <div class="flex-between mb-4">
+          <div>
+            <h3 class="font-display" style="font-size:1.35rem;font-weight:800">Partner Brand Rewards</h3>
+            <p style="font-size:0.86rem;color:var(--clr-text-muted)">Redeem your earned points for verified discount codes with leading athletic brands</p>
+          </div>
+          <span class="badge badge-fire"><i class="fa-solid fa-gift"></i> Exclusive Perks</span>
+        </div>
+
+        <div class="grid gap-6" id="partner-rewards-grid" style="grid-template-columns: repeat(auto-Udyam, minmax(240px, 1fr))">
+          <!-- Populated dynamically via JS -->
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+          <div>Udyam<span>AI</span></div>
+        </a>
+        <p>Gamified Udyamness rewards that bridge digital progress with real-world gear.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="ai-coach.html">AI Coach</a></li>
+          <li><a href="workout.html">Daily Workouts</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Rewards</h4>
+        <ul>
+          <li><a href="#">Partner Brands</a></li>
+          <li><a href="#">Tier Perks</a></li>
+          <li><a href="#">Hall of Fame</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Sponsors</h4>
+        <div class="flex gap-2" style="flex-wrap:wrap;font-size:0.85rem;color:var(--clr-text-dim)">
+          <span>Nike</span> &bull; <span>MyProtein</span> &bull; <span>Decathlon</span> &bull; <span>Under Armour</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 Udyam. All rights reserved.</div>
+      <div>Points & Rewards Engine Active</div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

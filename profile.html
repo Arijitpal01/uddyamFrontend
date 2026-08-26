@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Athlete Profile – Udyam</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;800;900&family=OutUdyam:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Udyam Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Theme Initialization (prevents flash) -->
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('Udyam_theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-page="profile">
+
+  <!-- Navigation Bar -->
+  <nav id="navbar" class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+        <div>Udyam<span>AI</span></div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="ai-coach.html" class="nav-link">AI Coach</a>
+        <a href="workout.html" class="nav-link">Workout</a>
+        <a href="nutrition.html" class="nav-link">Nutrition</a>
+        <a href="challenges.html" class="nav-link">Challenges</a>
+        <a href="profile.html" class="nav-link active">Profile</a>
+      </div>
+
+      <div class="flex" style="align-items:center; gap:14px">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="profile.html" class="badge badge-blue" style="text-transform:none;font-size:0.85rem">
+          <i class="fa-solid fa-user"></i> <span class="nav-user-name">Athlete</span>
+        </a>
+        <button id="hamburger" class="hamburger" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-nav" class="mobile-nav">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="ai-coach.html" class="nav-link">AI Coach</a>
+    <a href="workout.html" class="nav-link">Workout</a>
+    <a href="nutrition.html" class="nav-link">Nutrition</a>
+    <a href="challenges.html" class="nav-link">Challenges</a>
+    <a href="profile.html" class="nav-link active">Profile</a>
+    <button class="theme-toggle btn btn-sm btn-outline" style="width:80%;max-width:320px;margin-top:10px" aria-label="Toggle theme">
+      <i class="fa-solid fa-moon"></i> <span class="theme-toggle-text">Dark Mode</span>
+    </button>
+  </div>
+
+  <!-- Page Header -->
+  <header class="page-hero">
+    <div class="container">
+      <span class="badge badge-blue mb-2"><i class="fa-solid fa-id-card"></i> Biometric Data & Preferences</span>
+      <h1 class="page-hero-title">Athlete Profile & Preferences</h1>
+      <p class="page-hero-sub">Manage your biometrics, target goals, and training constraints. All data is saved securely to your browser storage.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="section-sm">
+    <div class="container">
+      
+      <div class="onboarding-wrap">
+        
+        <!-- Stepper Indicator -->
+        <div class="step-stepper-bar">
+          <div class="step-dot-item active" data-step="0">1</div>
+          <div class="step-line-seg"></div>
+          <div class="step-dot-item" data-step="1">2</div>
+          <div class="step-line-seg"></div>
+          <div class="step-dot-item" data-step="2">3</div>
+        </div>
+
+        <!-- Form Card Container -->
+        <div class="step-card-panel">
+          
+          <!-- STEP 1: Basic Information -->
+          <div class="onboarding-step-content active" id="step-0">
+            <div class="mb-6">
+              <span class="badge badge-blue mb-2">Step 1 of 3</span>
+              <h2 class="font-display" style="font-size:1.5rem;font-weight:800">Basic Information</h2>
+              <p style="font-size:0.86rem;color:var(--clr-text-muted)">Tell us about your physical biometrics to calibrate accurate energy expenditure</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="p-name"><i class="fa-solid fa-user"></i> Full Athlete Name</label>
+              <input type="text" id="p-name" class="form-input" placeholder="e.g. Alex Vance" value="Alex Vance" required>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="p-age"><i class="fa-solid fa-cake-candles"></i> Age (Years)</label>
+                <input type="number" id="p-age" class="form-input" placeholder="24" value="24" min="13" max="100" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="p-gender"><i class="fa-solid fa-venus-mars"></i> Gender (Optional)</label>
+                <select id="p-gender" class="form-select">
+                  <option value="male" selected>Male</option>
+                  <option value="female">Female</option>
+                  <option value="non-binary">Non-binary</option>
+                  <option value="prefer-not">Prefer not to say</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="p-height"><i class="fa-solid fa-ruler-vertical"></i> Height (cm)</label>
+                <input type="number" id="p-height" class="form-input" placeholder="178" value="178" min="100" max="250" required>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="p-weight"><i class="fa-solid fa-weight-scale"></i> Weight (kg)</label>
+                <input type="number" id="p-weight" class="form-input" placeholder="72" value="72" min="30" max="300" required>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 2: Udyamness Information -->
+          <div class="onboarding-step-content" id="step-1">
+            <div class="mb-6">
+              <span class="badge badge-green mb-2">Step 2 of 3</span>
+              <h2 class="font-display" style="font-size:1.5rem;font-weight:800">Udyamness & Sport Focus</h2>
+              <p style="font-size:0.86rem;color:var(--clr-text-muted)">Customize your current training volume and discipline preferences</p>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="p-Udyamness-level"><i class="fa-solid fa-stairs"></i> Udyamness Level</label>
+                <select id="p-Udyamness-level" class="form-select">
+                  <option value="Beginner">Beginner (Getting Started)</option>
+                  <option value="Intermediate" selected>Intermediate (1-3 yrs experience)</option>
+                  <option value="Advanced">Advanced (Elite athlete)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="p-activity-level"><i class="fa-solid fa-person-running"></i> Activity Level</label>
+                <select id="p-activity-level" class="form-select">
+                  <option value="Sedentary">Sedentary (Minimal Activity)</option>
+                  <option value="Lightly Active">Lightly Active (1-2 days/wk)</option>
+                  <option value="Moderately Active" selected>Moderately Active (3-5 days/wk)</option>
+                  <option value="Very Active">Very Active (6-7 days intense)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-grid-2">
+              <div class="form-group">
+                <label class="form-label" for="p-sport"><i class="fa-solid fa-medal"></i> Primary Preferred Sport</label>
+                <select id="p-sport" class="form-select">
+                  <option value="Running" selected>Running / Athletics</option>
+                  <option value="Cricket">Cricket</option>
+                  <option value="Football">Football / Soccer</option>
+                  <option value="Badminton">Badminton</option>
+                  <option value="Basketball">Basketball</option>
+                  <option value="Tennis">Tennis</option>
+                  <option value="Strength Training">Strength & Bodybuilding</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="p-goal"><i class="fa-solid fa-bullseye"></i> Main Udyamness Goal</label>
+                <select id="p-goal" class="form-select">
+                  <option value="General Udyamness" selected>General Health & Udyamness</option>
+                  <option value="Weight Loss">Weight & Fat Loss</option>
+                  <option value="Muscle Building">Muscle Hypertrophy</option>
+                  <option value="Sports Performance">Sport-Specific Conditioning</option>
+                  <option value="Flexibility">Flexibility & Recovery</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEP 3: Training & Diet Preferences -->
+          <div class="onboarding-step-content" id="step-2">
+            <div class="mb-6">
+              <span class="badge badge-purple mb-2">Step 3 of 3</span>
+              <h2 class="font-display" style="font-size:1.5rem;font-weight:800">Training & Dietary Preferences</h2>
+              <p style="font-size:0.86rem;color:var(--clr-text-muted)">Set your workout durations and dietary constraints for customized plans</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="p-duration"><i class="fa-solid fa-stopwatch"></i> Ideal Workout Duration</label>
+              <select id="p-duration" class="form-select">
+                <option value="15">15 Minutes (Express HIIT)</option>
+                <option value="30">30 Minutes (Standard)</option>
+                <option value="45" selected>45 Minutes (Comprehensive)</option>
+                <option value="60">60 Minutes (High Volume)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="p-equipment"><i class="fa-solid fa-dumbbell"></i> Available Equipment</label>
+              <select id="p-equipment" class="form-select">
+                <option value="No Equipment">No Equipment (Strictly Bodyweight)</option>
+                <option value="Minimal (Dumbbells/Bands)" selected>Minimal (Dumbbells & Resistance Bands)</option>
+                <option value="Full Gym">Full Commercial Gym Access</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="p-diet"><i class="fa-solid fa-utensils"></i> Dietary Preference</label>
+              <select id="p-diet" class="form-select">
+                <option value="Standard" selected>Standard (Balanced Omnivore)</option>
+                <option value="High Protein">High Protein Athletic</option>
+                <option value="Vegetarian">Vegetarian (Lacto-Ovo)</option>
+                <option value="Vegan">100% Plant-Based (Vegan)</option>
+                <option value="Keto">Ketogenic (Low Carb)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Bottom Navigation Controls -->
+          <div class="flex-between mt-8" style="padding-top:20px;border-top:1px solid var(--clr-border)">
+            <button type="button" id="btn-profile-prev" class="btn btn-outline" style="visibility:hidden">
+              <i class="fa-solid fa-arrow-left"></i> Previous
+            </button>
+
+            <div class="flex gap-4">
+              <button type="button" id="btn-reset-profile" class="btn btn-sm" style="color:var(--clr-pink);background:rgba(236,72,153,0.1);border:1px solid rgba(236,72,153,0.25)">
+                <i class="fa-solid fa-rotate-left"></i> Reset
+              </button>
+
+              <button type="button" id="btn-profile-next" class="btn btn-primary">
+                Next Step <i class="fa-solid fa-arrow-right"></i>
+              </button>
+
+              <button type="button" id="btn-profile-submit" class="btn btn-green hidden">
+                <i class="fa-solid fa-check"></i> Save & Sync to Dashboard
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+          <div>Udyam<span>AI</span></div>
+        </a>
+        <p>Your local client-side encrypted athlete profile and preference hub.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="ai-coach.html">AI Coach</a></li>
+          <li><a href="workout.html">Daily Workouts</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Data</h4>
+        <ul>
+          <li><a href="#">Export Metrics</a></li>
+          <li><a href="#">Local Storage Policy</a></li>
+          <li><a href="#">Privacy Settings</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Status</h4>
+        <div style="font-size:0.85rem;color:var(--clr-green);line-height:1.8">
+          <div><i class="fa-solid fa-lock"></i> Client-Side Privacy: Active</div>
+          <div><i class="fa-solid fa-cloud-arrow-down"></i> Sync: LocalStorage</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 Udyam. All rights reserved.</div>
+      <div>Local Profile Storage Active</div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

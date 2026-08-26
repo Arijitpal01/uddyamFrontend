@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Sports Coach – Udyam</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;800;900&family=OutUdyam:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Udyam Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Theme Initialization (prevents flash) -->
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('Udyam_theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-page="ai-coach">
+
+  <!-- Navigation Bar -->
+  <nav id="navbar" class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+        <div>Udyam<span>AI</span></div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="ai-coach.html" class="nav-link active">AI Coach</a>
+        <a href="workout.html" class="nav-link">Workout</a>
+        <a href="nutrition.html" class="nav-link">Nutrition</a>
+        <a href="challenges.html" class="nav-link">Challenges</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </div>
+
+      <div class="flex" style="align-items:center; gap:14px">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="profile.html" class="badge badge-blue" style="text-transform:none;font-size:0.85rem">
+          <i class="fa-solid fa-user"></i> <span class="nav-user-name">Athlete</span>
+        </a>
+        <button id="hamburger" class="hamburger" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-nav" class="mobile-nav">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="ai-coach.html" class="nav-link active">AI Coach</a>
+    <a href="workout.html" class="nav-link">Workout</a>
+    <a href="nutrition.html" class="nav-link">Nutrition</a>
+    <a href="challenges.html" class="nav-link">Challenges</a>
+    <a href="profile.html" class="nav-link">Profile</a>
+    <button class="theme-toggle btn btn-sm btn-outline" style="width:80%;max-width:320px;margin-top:10px" aria-label="Toggle theme">
+      <i class="fa-solid fa-moon"></i> <span class="theme-toggle-text">Dark Mode</span>
+    </button>
+  </div>
+
+  <!-- Page Header -->
+  <header class="page-hero">
+    <div class="container">
+      <span class="badge badge-green mb-2"><i class="fa-solid fa-cloud-arrow-up"></i> AI Sports Video Biomechanics</span>
+      <h1 class="page-hero-title">AI Sports Coaching Arena</h1>
+      <p class="page-hero-sub">Select your sport discipline, upload your practice or game video, and receive instant AI computer vision biomechanics and technique analysis.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="section-sm">
+    <div class="container">
+      
+      <!-- 1. Sports Selection Bar -->
+      <section class="mb-6">
+        <div class="flex-between mb-4">
+          <h3 class="font-display" style="font-size:1.25rem;font-weight:800">Select Sport Discipline</h3>
+          <span style="font-size:0.82rem;color:var(--clr-text-muted)">6 Olympic & Athletic Sports Available</span>
+        </div>
+
+        <div class="sport-selection-grid">
+          <div class="sport-select-card selected" data-sport="Cricket">
+            <div class="sport-emoji">🏏</div>
+            <div class="sport-name">Cricket</div>
+            <div style="font-size:0.75rem;color:var(--clr-text-dim)">Batting & Bowling</div>
+          </div>
+
+          <div class="sport-select-card" data-sport="Football">
+            <div class="sport-emoji">⚽</div>
+            <div class="sport-name">Football</div>
+            <div style="font-size:0.75rem;color:var(--clr-text-dim)">Strike & Control</div>
+          </div>
+
+          <div class="sport-select-card" data-sport="Badminton">
+            <div class="sport-emoji">🏸</div>
+            <div class="sport-name">Badminton</div>
+            <div style="font-size:0.75rem;color:var(--clr-text-dim)">Smash & Agility</div>
+          </div>
+
+          <div class="sport-select-card" data-sport="Basketball">
+            <div class="sport-emoji">🏀</div>
+            <div class="sport-name">Basketball</div>
+            <div style="font-size:0.75rem;color:var(--clr-text-dim)">Shot & Defense</div>
+          </div>
+
+          <div class="sport-select-card" data-sport="Running">
+            <div class="sport-emoji">🏃</div>
+            <div class="sport-name">Running</div>
+            <div style="font-size:0.75rem;color:var(--clr-text-dim)">Cadence & Strike</div>
+          </div>
+
+          <div class="sport-select-card" data-sport="Tennis">
+            <div class="sport-emoji">🎾</div>
+            <div class="sport-name">Tennis</div>
+            <div style="font-size:0.75rem;color:var(--clr-text-dim)">Serve & Topspin</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. AI Video Arena Layout -->
+      <section class="ai-arena-grid">
+        
+        <!-- Left: Video Upload & Video Preview HUD -->
+        <div class="card" style="padding:0;overflow:hidden">
+          <div style="background:var(--clr-bg-3);padding:14px 20px;border-bottom:1px solid var(--clr-border);display:flex;align-items:center;justify-content:space-between">
+            <div class="flex gap-2" style="align-items:center">
+              <span class="pulse-dot" style="width:8px;height:8px;background:var(--clr-green-neon);border-radius:50%;display:inline-block"></span>
+              <span style="font-family:var(--font-tech);font-size:0.85rem;font-weight:700;letter-spacing:1px" id="selected-sport-title">Cricket AI Coaching Hub</span>
+            </div>
+            <div class="flex gap-4" style="align-items:center">
+              <span class="badge badge-blue" id="video-status-badge" style="font-size:0.75rem">Upload Ready</span>
+              <span class="badge badge-outline" style="font-size:0.7rem">Frontend Engine</span>
+            </div>
+          </div>
+
+          <div style="padding:24px">
+            
+            <!-- Video Upload Dropzone (Visible when no video uploaded) -->
+            <div id="video-upload-area">
+              <div class="video-upload-dropzone" id="video-dropzone">
+                <input type="file" id="sports-video-input" accept="video/mp4,video/webm,video/quicktime,video/mov,video/*" style="display:none">
+                
+                <div class="video-upload-icon-circle">
+                  <i class="fa-solid fa-cloud-arrow-up"></i>
+                </div>
+                
+                <h3 class="font-display" style="font-size:1.35rem;font-weight:800;margin-bottom:8px">Upload Your Sports Video</h3>
+                <p style="color:var(--clr-text-muted);font-size:0.92rem;max-width:440px;margin:0 auto 16px">
+                  Drag and drop a video of your practice session, batting, bowling, kicking, strokes, or running form.
+                </p>
+                
+                <div class="flex justify-center gap-3" style="margin-bottom:18px">
+                  <button type="button" class="btn btn-primary" id="btn-trigger-upload">
+                    <i class="fa-solid fa-folder-open"></i> Browse Video File
+                  </button>
+                </div>
+
+                <div style="font-size:0.78rem;color:var(--clr-text-dim)">
+                  <i class="fa-solid fa-circle-info"></i> Supported Formats: <strong>MP4, WebM, MOV</strong> (Processed locally in browser)
+                </div>
+              </div>
+            </div>
+
+            <!-- Video Preview Container (Visible after video selected) -->
+            <div id="video-preview-container" class="hidden">
+              <div class="video-preview-wrapper mb-4">
+                <video id="sports-video-player" controls playsinline preload="metadata">
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+
+              <!-- Video Metadata Bar -->
+              <div class="video-meta-bar mb-4" style="border-radius:var(--radius-md)">
+                <div class="flex gap-3" style="align-items:center;min-width:0">
+                  <div style="width:34px;height:34px;border-radius:8px;background:rgba(59,130,246,0.15);color:var(--clr-blue-light);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                    <i class="fa-solid fa-film"></i>
+                  </div>
+                  <div style="overflow:hidden">
+                    <div id="uploaded-video-name" style="font-weight:700;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">sports_clip.mp4</div>
+                    <div id="uploaded-video-size" style="font-size:0.75rem;color:var(--clr-text-dim)">-- MB · Ready for Analysis</div>
+                  </div>
+                </div>
+
+                <div class="flex gap-2">
+                  <button type="button" class="btn btn-sm btn-outline" id="btn-change-video">
+                    <i class="fa-solid fa-arrows-rotate"></i> Change Video
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline" id="btn-remove-video" style="color:var(--clr-pink)">
+                    <i class="fa-solid fa-trash-can"></i> Remove
+                  </button>
+                </div>
+              </div>
+
+              <!-- Video Analysis Loading State -->
+              <div id="video-analysis-loading" class="hidden text-center" style="padding:28px 20px;background:rgba(0,0,0,0.35);border:1px solid var(--clr-border);border-radius:var(--radius-md);margin-bottom:18px">
+                <div class="spinner spinner-lg" style="margin:0 auto 16px"></div>
+                <div id="video-analysis-status-text" style="font-family:var(--font-tech);font-weight:700;color:var(--clr-blue-light);font-size:1.05rem;margin-bottom:12px">
+                  Preparing video analysis...
+                </div>
+                <div class="progress-wrap" style="max-width:360px;margin:0 auto">
+                  <div class="progress-bar" id="video-analysis-progress-bar" style="width:15%;background:var(--grad-primary)"></div>
+                </div>
+              </div>
+
+              <!-- AI Coaching Feedback Results -->
+              <div id="video-feedback-results" class="hidden">
+                <div class="card card-glow-green" style="padding:18px;margin-bottom:0">
+                  <div class="flex-between mb-3">
+                    <div style="font-family:var(--font-display);font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:8px">
+                      <i class="fa-solid fa-sparkles" style="color:var(--clr-green-neon)"></i> AI Coaching Technique Assessment
+                    </div>
+                    <span class="badge badge-green">Analysis Complete</span>
+                  </div>
+
+                  <div id="ai-video-feedback-list" class="flex flex-col gap-3">
+                    <!-- Populated dynamically via JS -->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Right: Scores & Drill Suggestions -->
+        <div class="flex" style="flex-direction:column;gap:20px">
+          
+          <!-- AI Performance & Technique Ratings -->
+          <div class="card card-glow-blue">
+            <div class="flex-between mb-4">
+              <h3 class="font-display" style="font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:8px">
+                <i class="fa-solid fa-gauge-high" style="color:var(--clr-blue-light)"></i> AI Biomechanical Ratings
+              </h3>
+              <span id="overall-score-badge" class="badge badge-outline" style="font-size:0.75rem">Awaiting Video</span>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:12px;text-align:center">
+              <div>
+                <div class="score-circle-hud" id="circle-tech" style="--pct:0%;background:conic-gradient(var(--clr-green) 0%, rgba(255,255,255,0.06) 0%)">
+                  <span class="score-circle-val" id="val-tech">--</span>
+                </div>
+                <div style="font-size:0.8rem;font-weight:700">Technique Score</div>
+                <div style="font-size:0.7rem;color:var(--clr-text-dim)">Form & Posture</div>
+              </div>
+
+              <div>
+                <div class="score-circle-hud" id="circle-mov" style="--pct:0%;background:conic-gradient(var(--clr-blue) 0%, rgba(255,255,255,0.06) 0%)">
+                  <span class="score-circle-val" id="val-mov">--</span>
+                </div>
+                <div style="font-size:0.8rem;font-weight:700">Movement Score</div>
+                <div style="font-size:0.7rem;color:var(--clr-text-dim)">Timing & Balance</div>
+              </div>
+
+              <div>
+                <div class="score-circle-hud" id="circle-perf" style="--pct:0%;background:conic-gradient(var(--clr-purple) 0%, rgba(255,255,255,0.06) 0%)">
+                  <span class="score-circle-val" id="val-perf">--</span>
+                </div>
+                <div style="font-size:0.8rem;font-weight:700">Performance</div>
+                <div style="font-size:0.7rem;color:var(--clr-text-dim)">Power & Execution</div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="mt-6 flex gap-4">
+              <button id="btn-analyze-video" class="btn btn-primary btn-full" disabled title="Please upload a sports video first">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Analyze Video
+              </button>
+              <button id="btn-reanalyze-video" class="btn btn-outline btn-full hidden">
+                <i class="fa-solid fa-arrows-rotate"></i> Re-Analyze
+              </button>
+            </div>
+          </div>
+
+          <!-- Suggested Drills & Training Focus -->
+          <div class="card">
+            <h3 class="font-display" style="font-size:1.15rem;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px">
+              <i class="fa-solid fa-list-check" style="color:var(--clr-green)"></i> Drill Suggestions & Drills
+            </h3>
+            
+            <div id="sport-drills-list">
+              <!-- Populated dynamically via JS -->
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+          <div>Udyam<span>AI</span></div>
+        </a>
+        <p>AI computer vision coaching and real-time biomechanics feedback.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="ai-coach.html">AI Coach</a></li>
+          <li><a href="workout.html">Daily Workouts</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Features</h4>
+        <ul>
+          <li><a href="nutrition.html">Nutrition Plans</a></li>
+          <li><a href="challenges.html">Weekly Challenges</a></li>
+          <li><a href="profile.html">Athlete Profile</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Discipline Presets</h4>
+        <ul>
+          <li><a href="#">Cricket Mechanics</a></li>
+          <li><a href="#">Football Accuracy</a></li>
+          <li><a href="#">Badminton Speed</a></li>
+          <li><a href="#">Tennis Topspin</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 Udyam. All rights reserved.</div>
+      <div>AI Simulation Engine Active</div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Dashboard – Udyam</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;800;900&family=OutUdyam:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Udyam Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Theme Initialization (prevents flash) -->
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('Udyam_theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-page="dashboard">
+
+  <!-- Navigation Bar -->
+  <nav id="navbar" class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+        <div>Udyam<span>AI</span></div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link active">Dashboard</a>
+        <a href="ai-coach.html" class="nav-link">AI Coach</a>
+        <a href="workout.html" class="nav-link">Workout</a>
+        <a href="nutrition.html" class="nav-link">Nutrition</a>
+        <a href="challenges.html" class="nav-link">Challenges</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </div>
+
+      <div class="flex" style="align-items:center; gap:14px">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="profile.html" class="badge badge-blue" style="text-transform:none;font-size:0.85rem">
+          <i class="fa-solid fa-user"></i> <span class="nav-user-name">Athlete</span>
+        </a>
+        <button id="hamburger" class="hamburger" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-nav" class="mobile-nav">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="dashboard.html" class="nav-link active">Dashboard</a>
+    <a href="ai-coach.html" class="nav-link">AI Coach</a>
+    <a href="workout.html" class="nav-link">Workout</a>
+    <a href="nutrition.html" class="nav-link">Nutrition</a>
+    <a href="challenges.html" class="nav-link">Challenges</a>
+    <a href="profile.html" class="nav-link">Profile</a>
+    <button class="theme-toggle btn btn-sm btn-outline" style="width:80%;max-width:320px;margin-top:10px" aria-label="Toggle theme">
+      <i class="fa-solid fa-moon"></i> <span class="theme-toggle-text">Dark Mode</span>
+    </button>
+  </div>
+
+  <!-- Main Content -->
+  <main class="section-sm" style="padding-top:calc(var(--nav-h) + 24px)">
+    <div class="container">
+      
+      <!-- Welcome Hero Banner -->
+      <section class="dash-banner flex-between" style="flex-wrap:wrap;gap:20px">
+        <div>
+          <span class="badge" style="background:rgba(255,255,255,0.2);color:#fff;margin-bottom:8px">
+            <i class="fa-solid fa-bolt"></i> Daily Performance Hub
+          </span>
+          <h1 class="dash-banner-title">
+            Welcome back, <span id="dash-user-name">Athlete</span>! 👋
+          </h1>
+          <p class="dash-banner-sub" id="dash-motivational-quote">
+            "Success starts with self-discipline. Let's make today count."
+          </p>
+          <div style="font-size:0.82rem;opacity:0.8;margin-top:10px" id="dash-current-date">
+            Tuesday, August 25, 2026
+          </div>
+        </div>
+
+        <div class="flex gap-4" style="align-items:center">
+          <a href="workout.html" class="btn" style="background:#fff;color:#080b14;font-weight:700">
+            <i class="fa-solid fa-play"></i> Quick Workout
+          </a>
+          <a href="ai-coach.html" class="btn btn-outline" style="border-color:rgba(255,255,255,0.4);color:#fff">
+            <i class="fa-solid fa-brain"></i> AI Coach
+          </a>
+        </div>
+      </section>
+
+      <!-- Key Metrics 4-Grid -->
+      <section class="stats-4-grid">
+        <!-- Calories Burned -->
+        <div class="dash-stat-card">
+          <div class="stat-card-icon" style="background:rgba(245,158,11,0.15);color:var(--clr-orange)">
+            <i class="fa-solid fa-fire"></i>
+          </div>
+          <div class="stat-card-number" id="dash-cal-val">0</div>
+          <div class="stat-card-name">Calories Burned (kcal)</div>
+          <div style="font-size:0.75rem;color:var(--clr-green);margin-top:8px;display:flex;align-items:center;gap:4px">
+            <i class="fa-solid fa-arrow-trend-up"></i> +12% vs last week
+          </div>
+        </div>
+
+        <!-- Workout Time -->
+        <div class="dash-stat-card">
+          <div class="stat-card-icon" style="background:rgba(59,130,246,0.15);color:var(--clr-blue-light)">
+            <i class="fa-solid fa-stopwatch"></i>
+          </div>
+          <div class="stat-card-number" id="dash-time-val">0</div>
+          <div class="stat-card-name">Workout Time (mins)</div>
+          <div style="font-size:0.75rem;color:var(--clr-green);margin-top:8px;display:flex;align-items:center;gap:4px">
+            <i class="fa-solid fa-arrow-trend-up"></i> On target for 200m goal
+          </div>
+        </div>
+
+        <!-- Streak -->
+        <div class="dash-stat-card">
+          <div class="stat-card-icon" style="background:rgba(236,72,153,0.15);color:var(--clr-pink)">
+            <i class="fa-solid fa-fire-flame-curved"></i>
+          </div>
+          <div class="stat-card-number" id="dash-streak-val">0</div>
+          <div class="stat-card-name">Current Day Streak</div>
+          <div style="font-size:0.75rem;color:var(--clr-orange);margin-top:8px;display:flex;align-items:center;gap:4px">
+            <i class="fa-solid fa-medal"></i> 2 days away from 7-day badge
+          </div>
+        </div>
+
+        <!-- Points Earned -->
+        <div class="dash-stat-card">
+          <div class="stat-card-icon" style="background:rgba(139,92,246,0.15);color:var(--clr-purple-light)">
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <div class="stat-card-number" id="dash-points-val">0</div>
+          <div class="stat-card-name">Reward Points Earned</div>
+          <div style="font-size:0.75rem;color:var(--clr-blue-light);margin-top:8px;display:flex;align-items:center;gap:4px">
+            <i class="fa-solid fa-gift"></i> Redeemable on partner gear
+          </div>
+        </div>
+      </section>
+
+      <!-- Charts & Visualizations -->
+      <section class="grid gap-6 mb-8" style="grid-template-columns: 1.5fr 1fr">
+        <!-- Weekly Workout Bar Chart -->
+        <div class="card">
+          <div class="flex-between mb-4">
+            <div>
+              <h3 class="font-display" style="font-size:1.15rem;font-weight:700">Weekly Workout Activity</h3>
+              <p style="font-size:0.82rem;color:var(--clr-text-muted)">Minutes trained per day over the past 7 days</p>
+            </div>
+            <span class="badge badge-blue">Last 7 Days</span>
+          </div>
+
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;height:180px;padding:10px 0;border-bottom:1px solid var(--clr-border)">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%">
+              <div style="flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center">
+                <div class="chart-bar-item" style="width:36px;height:0;background:var(--grad-primary);border-radius:6px 6px 0 0;transition:height 1s cubic-bezier(0.4,0,0.2,1);position:relative"></div>
+              </div>
+              <span style="font-size:0.75rem;color:var(--clr-text-dim)">Mon</span>
+            </div>
+
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%">
+              <div style="flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center">
+                <div class="chart-bar-item" style="width:36px;height:0;background:var(--grad-primary);border-radius:6px 6px 0 0;transition:height 1s cubic-bezier(0.4,0,0.2,1);position:relative"></div>
+              </div>
+              <span style="font-size:0.75rem;color:var(--clr-text-dim)">Tue</span>
+            </div>
+
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%">
+              <div style="flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center">
+                <div class="chart-bar-item" style="width:36px;height:0;background:var(--grad-primary);border-radius:6px 6px 0 0;transition:height 1s cubic-bezier(0.4,0,0.2,1);position:relative"></div>
+              </div>
+              <span style="font-size:0.75rem;color:var(--clr-text-dim)">Wed</span>
+            </div>
+
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%">
+              <div style="flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center">
+                <div class="chart-bar-item" style="width:36px;height:0;background:var(--grad-primary);border-radius:6px 6px 0 0;transition:height 1s cubic-bezier(0.4,0,0.2,1);position:relative"></div>
+              </div>
+              <span style="font-size:0.75rem;color:var(--clr-text-dim)">Thu</span>
+            </div>
+
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%">
+              <div style="flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center">
+                <div class="chart-bar-item" style="width:36px;height:0;background:var(--grad-primary);border-radius:6px 6px 0 0;transition:height 1s cubic-bezier(0.4,0,0.2,1);position:relative"></div>
+              </div>
+              <span style="font-size:0.75rem;color:var(--clr-text-dim)">Fri</span>
+            </div>
+
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%">
+              <div style="flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center">
+                <div class="chart-bar-item" style="width:36px;height:0;background:var(--grad-primary);border-radius:6px 6px 0 0;transition:height 1s cubic-bezier(0.4,0,0.2,1);position:relative"></div>
+              </div>
+              <span style="font-size:0.75rem;color:var(--clr-text-dim)">Sat</span>
+            </div>
+
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%">
+              <div style="flex:1;width:100%;display:flex;align-items:flex-end;justify-content:center">
+                <div class="chart-bar-item" style="width:36px;height:0;background:var(--grad-primary);border-radius:6px 6px 0 0;transition:height 1s cubic-bezier(0.4,0,0.2,1);position:relative"></div>
+              </div>
+              <span style="font-size:0.75rem;color:var(--clr-text-dim)">Sun</span>
+            </div>
+          </div>
+
+          <div class="flex-between mt-4" style="font-size:0.8rem;color:var(--clr-text-muted)">
+            <span>Average: ~45 mins/day</span>
+            <span style="color:var(--clr-green)"><i class="fa-solid fa-circle-check"></i> 85% Consistency</span>
+          </div>
+        </div>
+
+        <!-- Goals Progress Circular Gauges -->
+        <div class="card">
+          <div class="flex-between mb-4">
+            <h3 class="font-display" style="font-size:1.15rem;font-weight:700">Goal Completion</h3>
+            <span class="badge badge-green">On Track</span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center;padding:10px 0">
+            <div>
+              <div class="score-circle-hud" style="--pct:75%;background:conic-gradient(var(--clr-green) 75%, rgba(255,255,255,0.06) 0%)">
+                <span class="score-circle-val">75%</span>
+              </div>
+              <div style="font-size:0.82rem;font-weight:700;margin-top:4px">Daily Goal</div>
+              <div style="font-size:0.72rem;color:var(--clr-text-dim)">45 / 60 mins</div>
+            </div>
+
+            <div>
+              <div class="score-circle-hud" style="--pct:60%;background:conic-gradient(var(--clr-blue) 60%, rgba(255,255,255,0.06) 0%)">
+                <span class="score-circle-val">60%</span>
+              </div>
+              <div style="font-size:0.82rem;font-weight:700;margin-top:4px">Weekly Goal</div>
+              <div style="font-size:0.72rem;color:var(--clr-text-dim)">3 / 5 days</div>
+            </div>
+
+            <div>
+              <div class="score-circle-hud" style="--pct:45%;background:conic-gradient(var(--clr-orange) 45%, rgba(255,255,255,0.06) 0%)">
+                <span class="score-circle-val">45%</span>
+              </div>
+              <div style="font-size:0.82rem;font-weight:700;margin-top:4px">Monthly Goal</div>
+              <div style="font-size:0.72rem;color:var(--clr-text-dim)">9 / 20 workouts</div>
+            </div>
+          </div>
+
+          <div style="background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.2);border-radius:var(--radius-md);padding:12px;margin-top:14px;font-size:0.82rem;color:var(--clr-text-muted)">
+            <i class="fa-solid fa-award" style="color:var(--clr-blue-light)"></i> Next milestone: <strong>10 Workouts this month</strong> (+150 pts)
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick Actions Grid -->
+      <section class="mb-8">
+        <h3 class="font-display" style="font-size:1.3rem;font-weight:800;margin-bottom:16px">Quick Actions</h3>
+        <div class="quick-actions-row">
+          <a href="workout.html" class="quick-action-btn">
+            <div class="quick-action-icon" style="background:rgba(16,185,129,0.15);color:var(--clr-green)">
+              <i class="fa-solid fa-dumbbell"></i>
+            </div>
+            <div style="font-weight:700">Start Workout</div>
+            <div style="font-size:0.76rem;color:var(--clr-text-muted)">AI Generated Routine</div>
+          </a>
+
+          <a href="ai-coach.html" class="quick-action-btn">
+            <div class="quick-action-icon" style="background:rgba(59,130,246,0.15);color:var(--clr-blue-light)">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <div style="font-weight:700">AI Sports Coach</div>
+            <div style="font-size:0.76rem;color:var(--clr-text-muted)">Real-time Form Scan</div>
+          </a>
+
+          <a href="nutrition.html" class="quick-action-btn">
+            <div class="quick-action-icon" style="background:rgba(245,158,11,0.15);color:var(--clr-orange)">
+              <i class="fa-solid fa-utensils"></i>
+            </div>
+            <div style="font-weight:700">Nutrition Plan</div>
+            <div style="font-size:0.76rem;color:var(--clr-text-muted)">Custom Macros & Meals</div>
+          </a>
+
+          <a href="challenges.html" class="quick-action-btn">
+            <div class="quick-action-icon" style="background:rgba(139,92,246,0.15);color:var(--clr-purple-light)">
+              <i class="fa-solid fa-trophy"></i>
+            </div>
+            <div style="font-weight:700">View Challenges</div>
+            <div style="font-size:0.76rem;color:var(--clr-text-muted)">Earn Points & Rewards</div>
+          </a>
+        </div>
+      </section>
+
+      <!-- Bottom Row: Recent Activity & Badges -->
+      <section class="grid gap-6" style="grid-template-columns: 1.2fr 1fr">
+        <!-- Recent Activities Feed -->
+        <div class="card">
+          <div class="flex-between mb-4">
+            <h3 class="font-display" style="font-size:1.2rem;font-weight:800">Recent Activity Feed</h3>
+            <a href="challenges.html" style="font-size:0.82rem;color:var(--clr-blue-light)">View All &rarr;</a>
+          </div>
+          <div id="dash-activity-feed">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- Badges Showcase -->
+        <div class="card">
+          <div class="flex-between mb-4">
+            <h3 class="font-display" style="font-size:1.2rem;font-weight:800">Earned Badges</h3>
+            <a href="challenges.html" style="font-size:0.82rem;color:var(--clr-blue-light)">Achievements &rarr;</a>
+          </div>
+          <div class="grid gap-4" id="dash-badges-grid" style="grid-template-columns:1fr 1fr">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+          <div>Udyam<span>AI</span></div>
+        </a>
+        <p>Personalized intelligence powering your athletic lifestyle.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="ai-coach.html">AI Coach</a></li>
+          <li><a href="workout.html">Workouts</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="nutrition.html">Nutrition Blueprint</a></li>
+          <li><a href="challenges.html">Weekly Challenges</a></li>
+          <li><a href="profile.html">Profile Settings</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>System</h4>
+        <div style="font-size:0.85rem;color:var(--clr-green);line-height:1.8">
+          <div><i class="fa-solid fa-circle-dot"></i> Neural Engine: Active</div>
+          <div><i class="fa-solid fa-database"></i> Storage: Local Synchronized</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 Udyam. All rights reserved.</div>
+      <div>Prototype Frontend Simulation</div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

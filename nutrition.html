@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutrition Assistant – Udyam</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;800;900&family=OutUdyam:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Udyam Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Theme Initialization (prevents flash) -->
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('Udyam_theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-page="nutrition">
+
+  <!-- Navigation Bar -->
+  <nav id="navbar" class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+        <div>Udyam<span>AI</span></div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="ai-coach.html" class="nav-link">AI Coach</a>
+        <a href="workout.html" class="nav-link">Workout</a>
+        <a href="nutrition.html" class="nav-link active">Nutrition</a>
+        <a href="challenges.html" class="nav-link">Challenges</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </div>
+
+      <div class="flex" style="align-items:center; gap:14px">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="profile.html" class="badge badge-blue" style="text-transform:none;font-size:0.85rem">
+          <i class="fa-solid fa-user"></i> <span class="nav-user-name">Athlete</span>
+        </a>
+        <button id="hamburger" class="hamburger" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-nav" class="mobile-nav">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="ai-coach.html" class="nav-link">AI Coach</a>
+    <a href="workout.html" class="nav-link">Workout</a>
+    <a href="nutrition.html" class="nav-link active">Nutrition</a>
+    <a href="challenges.html" class="nav-link">Challenges</a>
+    <a href="profile.html" class="nav-link">Profile</a>
+    <button class="theme-toggle btn btn-sm btn-outline" style="width:80%;max-width:320px;margin-top:10px" aria-label="Toggle theme">
+      <i class="fa-solid fa-moon"></i> <span class="theme-toggle-text">Dark Mode</span>
+    </button>
+  </div>
+
+  <!-- Page Header -->
+  <header class="page-hero">
+    <div class="container">
+      <span class="badge badge-fire mb-2"><i class="fa-solid fa-fire-burner"></i> Metabolic Intelligence</span>
+      <h1 class="page-hero-title">Personalized AI Nutrition Assistant</h1>
+      <p class="page-hero-sub">Calculate precise metabolic macro targets, hydration requirements, and synchronized meal recipes tailored to your Udyamness goals.</p>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="section-sm">
+    <div class="container">
+      
+      <!-- Input Parameters Form -->
+      <section class="card mb-8">
+        <div class="flex-between mb-6">
+          <div>
+            <h2 class="font-display" style="font-size:1.35rem;font-weight:800">Biometric & Dietary Profile</h2>
+            <p style="font-size:0.86rem;color:var(--clr-text-muted)">Calculate your Basal Metabolic Rate (BMR) and Total Daily Energy Expenditure (TDEE)</p>
+          </div>
+          <span class="badge badge-purple">Mifflin-St Jeor Engine</span>
+        </div>
+
+        <form id="nutrition-calc-form">
+          <div class="form-grid-3 mb-4">
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="n-weight"><i class="fa-solid fa-weight-scale"></i> Weight (kg)</label>
+              <input type="number" id="n-weight" class="form-input" value="72" min="35" max="250" required>
+            </div>
+
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="n-height"><i class="fa-solid fa-ruler-vertical"></i> Height (cm)</label>
+              <input type="number" id="n-height" class="form-input" value="178" min="100" max="250" required>
+            </div>
+
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="n-age"><i class="fa-solid fa-cake-candles"></i> Age (Years)</label>
+              <input type="number" id="n-age" class="form-input" value="24" min="13" max="100" required>
+            </div>
+          </div>
+
+          <div class="form-grid-3 mb-6">
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="n-goal"><i class="fa-solid fa-bullseye"></i> Primary Goal</label>
+              <select id="n-goal" class="form-select">
+                <option value="Weight Loss">Weight Loss (Caloric Deficit)</option>
+                <option value="Muscle Building">Muscle Building (Hypertrophy Surplus)</option>
+                <option value="General Udyamness" selected>General Udyamness (Maintenance)</option>
+                <option value="Sports Performance">Sports Performance (Glycogen Boost)</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="n-activity"><i class="fa-solid fa-person-running"></i> Activity Level</label>
+              <select id="n-activity" class="form-select">
+                <option value="sedentary">Sedentary (Desk Job, minimal exercise)</option>
+                <option value="light">Lightly Active (1-3 workout days/wk)</option>
+                <option value="moderate" selected>Moderately Active (3-5 workout days/wk)</option>
+                <option value="very">Very Active (6-7 intense training days/wk)</option>
+              </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom:0">
+              <label class="form-label" for="n-diet"><i class="fa-solid fa-leaf"></i> Dietary Preference</label>
+              <select id="n-diet" class="form-select">
+                <option value="Standard" selected>Standard (Balanced Omnivore)</option>
+                <option value="High Protein">High Protein Athletic</option>
+                <option value="Vegetarian">Vegetarian (Lacto-Ovo)</option>
+                <option value="Vegan">100% Plant-Based (Vegan)</option>
+                <option value="Keto">Ketogenic (Low Carb / High Fat)</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-fire btn-lg btn-full">
+            <i class="fa-solid fa-calculator"></i> Generate My Personalized Nutrition Plan
+          </button>
+        </form>
+      </section>
+
+      <!-- Loading State -->
+      <div id="nutrition-loading" class="hidden text-center" style="padding:60px 20px">
+        <div class="spinner spinner-lg" style="margin:0 auto 20px"></div>
+        <h3 class="font-display" style="font-size:1.3rem;font-weight:700;color:var(--clr-orange)">Computing Macronutrient Distribution & Meal Blueprints...</h3>
+        <p style="color:var(--clr-text-muted);font-size:0.9rem">Synthesizing meal recipes tailored strictly to your dietary preference</p>
+      </div>
+
+      <!-- Generated Nutrition Results Card -->
+      <section id="nutrition-result-card">
+        
+        <!-- Daily Targets Row -->
+        <div class="card card-glow-purple mb-6">
+          <div class="flex-between mb-4">
+            <div>
+              <span class="badge badge-fire" style="margin-bottom:6px">Daily Target Metrics</span>
+              <h2 class="font-display" style="font-size:1.5rem;font-weight:800">Your Recommended Nutritional Blueprint</h2>
+            </div>
+            <span class="badge badge-green" style="font-size:0.8rem">
+              <i class="fa-solid fa-shield-heart"></i> Daily Score: 96/100
+            </span>
+          </div>
+
+          <!-- 5-Metric Tiles -->
+          <div class="grid gap-4 mb-6" style="grid-template-columns: repeat(auto-Udyam, minmax(170px, 1fr))">
+            <div class="macro-stat-tile">
+              <div style="font-size:1.6rem;color:var(--clr-orange)"><i class="fa-solid fa-fire"></i></div>
+              <div class="macro-stat-num" id="target-cal-num">2,250</div>
+              <div class="macro-stat-label">Daily Calories (kcal)</div>
+            </div>
+
+            <div class="macro-stat-tile">
+              <div style="font-size:1.6rem;color:var(--clr-green)"><i class="fa-solid fa-drumstick-bite"></i></div>
+              <div class="macro-stat-num" id="target-protein-num">144g</div>
+              <div class="macro-stat-label">Protein Target</div>
+            </div>
+
+            <div class="macro-stat-tile">
+              <div style="font-size:1.6rem;color:var(--clr-blue-light)"><i class="fa-solid fa-wheat-awn"></i></div>
+              <div class="macro-stat-num" id="target-carbs-num">255g</div>
+              <div class="macro-stat-label">Carbohydrates</div>
+            </div>
+
+            <div class="macro-stat-tile">
+              <div style="font-size:1.6rem;color:var(--clr-pink)"><i class="fa-solid fa-bacon"></i></div>
+              <div class="macro-stat-num" id="target-fats-num">62g</div>
+              <div class="macro-stat-label">Healthy Fats</div>
+            </div>
+
+            <div class="macro-stat-tile">
+              <div style="font-size:1.6rem;color:var(--clr-cyan)"><i class="fa-solid fa-droplet"></i></div>
+              <div class="macro-stat-num" id="target-water-num">3.2L</div>
+              <div class="macro-stat-label">Hydration Target</div>
+            </div>
+          </div>
+
+          <!-- Macro Percentage Bars -->
+          <div style="background:rgba(0,0,0,0.35);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:20px">
+            <h4 class="font-display" style="font-size:0.95rem;font-weight:700;margin-bottom:14px">Macro Energy Distribution Ratio</h4>
+            
+            <div style="margin-bottom:12px">
+              <div class="progress-label">
+                <span>Protein (4 kcal/g)</span>
+                <span id="macro-p-pct" style="font-weight:700;color:var(--clr-green)">26% (144g)</span>
+              </div>
+              <div class="progress-wrap"><div class="progress-bar" id="macro-p-bar" style="width:26%;background:var(--clr-green)"></div></div>
+            </div>
+
+            <div style="margin-bottom:12px">
+              <div class="progress-label">
+                <span>Carbohydrates (4 kcal/g)</span>
+                <span id="macro-c-pct" style="font-weight:700;color:var(--clr-blue-light)">45% (255g)</span>
+              </div>
+              <div class="progress-wrap"><div class="progress-bar" id="macro-c-bar" style="width:45%;background:var(--clr-blue-light)"></div></div>
+            </div>
+
+            <div>
+              <div class="progress-label">
+                <span>Healthy Fats (9 kcal/g)</span>
+                <span id="macro-f-pct" style="font-weight:700;color:var(--clr-pink)">29% (62g)</span>
+              </div>
+              <div class="progress-wrap"><div class="progress-bar" id="macro-f-bar" style="width:29%;background:var(--clr-pink)"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-Meal Plan Breakdown -->
+        <div class="card mb-6">
+          <div class="flex-between mb-4">
+            <h3 class="font-display" style="font-size:1.3rem;font-weight:800">
+              <i class="fa-solid fa-utensils" style="color:var(--clr-orange)"></i> Synchronized Daily Meal Plan
+            </h3>
+            <span class="badge badge-blue">Fresh Recipes</span>
+          </div>
+
+          <div class="grid gap-4" style="grid-template-columns: repeat(auto-Udyam, minmax(250px, 1fr))">
+            <!-- Breakfast -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:18px">
+              <div class="flex gap-2" style="align-items:center;margin-bottom:8px">
+                <span style="font-size:1.3rem">🌅</span>
+                <h4 style="font-family:var(--font-display);font-weight:700;font-size:1rem">Breakfast</h4>
+              </div>
+              <p id="meal-b-item" style="font-size:0.9rem;color:var(--clr-text);font-weight:500">
+                3 Scrambled Eggs with Avocado on Sourdough Toast & Green Tea
+              </p>
+              <div style="font-size:0.75rem;color:var(--clr-text-dim);margin-top:8px">~550 kcal · 32g Protein</div>
+            </div>
+
+            <!-- Lunch -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:18px">
+              <div class="flex gap-2" style="align-items:center;margin-bottom:8px">
+                <span style="font-size:1.3rem">☀️</span>
+                <h4 style="font-family:var(--font-display);font-weight:700;font-size:1rem">Lunch</h4>
+              </div>
+              <p id="meal-l-item" style="font-size:0.9rem;color:var(--clr-text);font-weight:500">
+                Grilled Chicken Breast with Brown Rice, Quinoa & Steamed Broccoli
+              </p>
+              <div style="font-size:0.75rem;color:var(--clr-text-dim);margin-top:8px">~680 kcal · 48g Protein</div>
+            </div>
+
+            <!-- Snack -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:18px">
+              <div class="flex gap-2" style="align-items:center;margin-bottom:8px">
+                <span style="font-size:1.3rem">🍎</span>
+                <h4 style="font-family:var(--font-display);font-weight:700;font-size:1rem">Evening Snack</h4>
+              </div>
+              <p id="meal-s-item" style="font-size:0.9rem;color:var(--clr-text);font-weight:500">
+                Handful of Raw Almonds & Walnuts with Whey Protein Shake
+              </p>
+              <div style="font-size:0.75rem;color:var(--clr-text-dim);margin-top:8px">~320 kcal · 25g Protein</div>
+            </div>
+
+            <!-- Dinner -->
+            <div style="background:rgba(255,255,255,0.03);border:1px solid var(--clr-border);border-radius:var(--radius-md);padding:18px">
+              <div class="flex gap-2" style="align-items:center;margin-bottom:8px">
+                <span style="font-size:1.3rem">🌙</span>
+                <h4 style="font-family:var(--font-display);font-weight:700;font-size:1rem">Dinner</h4>
+              </div>
+              <p id="meal-d-item" style="font-size:0.9rem;color:var(--clr-text);font-weight:500">
+                Baked Atlantic Salmon with Sweet Potato Mash & Roasted Asparagus
+              </p>
+              <div style="font-size:0.75rem;color:var(--clr-text-dim);margin-top:8px">~700 kcal · 39g Protein</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Healthcare / Nutrition Disclaimer Banner -->
+        <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);border-radius:var(--radius-lg);padding:20px;display:flex;gap:14px;align-items:flex-start">
+          <i class="fa-solid fa-triangle-exclamation" style="color:var(--clr-orange);font-size:1.4rem;margin-top:2px;flex-shrink:0"></i>
+          <div>
+            <h4 style="font-family:var(--font-display);font-weight:700;color:var(--clr-orange);font-size:0.95rem;margin-bottom:4px">
+              Medical & Nutritional Advisory Disclaimer
+            </h4>
+            <p style="font-size:0.84rem;color:var(--clr-text-muted);line-height:1.6">
+              This nutrition plan is for general informational and educational purposes only and should not replace clinical medical advice, diagnosis, or personalized treatment from a qualified physician or registered dietitian. Always consult a healthcare professional before initiating significant dietary modifications.
+            </p>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+          <div>Udyam<span>AI</span></div>
+        </a>
+        <p>Evidence-based metabolic nutrition algorithms tailored to your body.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="ai-coach.html">AI Coach</a></li>
+          <li><a href="workout.html">Daily Workouts</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Diet Presets</h4>
+        <ul>
+          <li><a href="#">Standard Balanced</a></li>
+          <li><a href="#">High Protein Athlete</a></li>
+          <li><a href="#">Lacto-Vegetarian</a></li>
+          <li><a href="#">Plant-Based Vegan</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Disclaimer</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 Udyam. All rights reserved.</div>
+      <div>Precision Nutrition Engine Active</div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

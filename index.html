@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Udyam – Your Personal AI Sports, Udyamness & Nutrition Coach</title>
+
+  <!-- Google Fonts: OutUdyam, Inter, Orbitron -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700;800;900&family=OutUdyam:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Udyam Unified Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Theme Initialization (prevents flash) -->
+  <script>
+    (function() {
+      try {
+        if (localStorage.getItem('Udyam_theme') === 'light') {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body data-page="home">
+
+  <!-- Navigation Bar -->
+  <nav id="navbar" class="navbar">
+    <div class="container nav-inner">
+      <a href="index.html" class="nav-logo">
+        <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+        <div>Udyam<span>AI</span></div>
+      </a>
+
+      <div class="nav-links">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="dashboard.html" class="nav-link">Dashboard</a>
+        <a href="ai-coach.html" class="nav-link">AI Coach</a>
+        <a href="workout.html" class="nav-link">Workout</a>
+        <a href="nutrition.html" class="nav-link">Nutrition</a>
+        <a href="challenges.html" class="nav-link">Challenges</a>
+        <a href="profile.html" class="nav-link">Profile</a>
+      </div>
+
+      <div class="flex" style="align-items:center; gap:14px">
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme" title="Toggle theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+        <a href="profile.html" class="badge badge-blue" style="text-transform:none;font-size:0.85rem">
+          <i class="fa-solid fa-user"></i> <span class="nav-user-name">Athlete</span>
+        </a>
+        <a href="profile.html" class="btn btn-sm btn-primary">
+          <i class="fa-solid fa-bolt"></i> Get Started
+        </a>
+        <button id="hamburger" class="hamburger" aria-label="Toggle navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-nav" class="mobile-nav">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="dashboard.html" class="nav-link">Dashboard</a>
+    <a href="ai-coach.html" class="nav-link">AI Coach</a>
+    <a href="workout.html" class="nav-link">Workout</a>
+    <a href="nutrition.html" class="nav-link">Nutrition</a>
+    <a href="challenges.html" class="nav-link">Challenges</a>
+    <a href="profile.html" class="nav-link">Profile</a>
+    <button class="theme-toggle btn btn-sm btn-outline" style="width:80%;max-width:320px;margin-top:10px" aria-label="Toggle theme">
+      <i class="fa-solid fa-moon"></i> <span class="theme-toggle-text">Dark Mode</span>
+    </button>
+  </div>
+
+  <!-- Hero Section -->
+  <header class="hero-section">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+
+    <div class="container">
+      <div class="hero-layout">
+        <!-- Hero Left Column -->
+        <div>
+          <div class="hero-badge">
+            <span class="pulse-dot"></span> Next-Gen AI Athletic Intelligence
+          </div>
+
+          <h1 class="hero-title">
+            Train Smarter. Perform Better. <br>
+            <span class="gradient-text">Powered by AI.</span>
+          </h1>
+
+          <p class="hero-subtitle">
+            Udyam is your all-in-one athletic companion combining real-time computer vision sports analysis, adaptive workout programming, precision macro nutrition, and gamified streak rewards.
+          </p>
+
+          <div class="hero-features-list">
+            <div class="hero-feature-item">
+              <i class="fa-solid fa-check"></i>
+              <span>Real-Time AI Biomechanics & Posture Analysis</span>
+            </div>
+            <div class="hero-feature-item">
+              <i class="fa-solid fa-check"></i>
+              <span>Adaptive Daily Workout Plans & Form Guidance</span>
+            </div>
+            <div class="hero-feature-item">
+              <i class="fa-solid fa-check"></i>
+              <span>Precision Macro Nutrition & Water Hydration Engine</span>
+            </div>
+            <div class="hero-feature-item">
+              <i class="fa-solid fa-check"></i>
+              <span>Gamification, Weekly Challenges & Brand Rewards</span>
+            </div>
+          </div>
+
+          <div class="hero-cta-group">
+            <a href="profile.html" class="btn btn-primary btn-lg">
+              <i class="fa-solid fa-rocket"></i> Get Started Free
+            </a>
+            <a href="#features" class="btn btn-outline btn-lg">
+              <i class="fa-solid fa-compass"></i> Explore Features
+            </a>
+          </div>
+
+          <div class="hero-stats-row">
+            <div class="hero-stat-card">
+              <span class="hero-stat-number stat-counter" data-target="99" data-suffix="%">0%</span>
+              <span class="hero-stat-label">AI Accuracy</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="hero-stat-number stat-counter" data-target="50" data-suffix="+">0+</span>
+              <span class="hero-stat-label">Sports Supported</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="hero-stat-number stat-counter" data-target="150" data-suffix="K+">0K+</span>
+              <span class="hero-stat-label">Workouts Logged</span>
+            </div>
+            <div class="hero-stat-card">
+              <span class="hero-stat-number stat-counter" data-target="49" data-suffix="/5★">0/5★</span>
+              <span class="hero-stat-label">User Rating</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero Right Column (Interactive HUD Simulation) -->
+        <div>
+          <div class="hero-visual-card">
+            <div class="hud-header">
+              <div class="hud-user">
+                <div class="hud-avatar"><i class="fa-solid fa-user-astronaut"></i></div>
+                <div>
+                  <div class="hud-name">Udyam Neural Core</div>
+                  <div class="hud-tag"><i class="fa-solid fa-circle-dot"></i> Live Tracking Active</div>
+                </div>
+              </div>
+              <span class="badge badge-green">v2.4 AI Engine</span>
+            </div>
+
+            <div class="hud-scanner">
+              <div class="scan-line"></div>
+              <div style="font-size:2.8rem;margin:8px 0;color:var(--clr-blue-light)">
+                <i class="fa-solid fa-person-running"></i>
+              </div>
+              <div style="font-family:var(--font-tech);font-weight:700;font-size:1.1rem;color:var(--clr-green-neon)">
+                TRACKING: <span id="hero-type-target">Sports Coaching</span>
+              </div>
+              <div style="font-size:0.8rem;color:var(--clr-text-dim);margin-top:4px">
+                Neural biomechanics topology active • 30 FPS
+              </div>
+            </div>
+
+            <div class="hud-metrics-grid">
+              <div class="hud-metric-box">
+                <div class="hud-metric-val">98.4%</div>
+                <div class="hud-metric-lbl">Posture Alignment</div>
+              </div>
+              <div class="hud-metric-box">
+                <div class="hud-metric-val">176 SPM</div>
+                <div class="hud-metric-lbl">Stride Cadence</div>
+              </div>
+              <div class="hud-metric-box">
+                <div class="hud-metric-val">540 kcal</div>
+                <div class="hud-metric-lbl">Energy Burned</div>
+              </div>
+              <div class="hud-metric-box">
+                <div class="hud-metric-val">+250 pts</div>
+                <div class="hud-metric-lbl">Reward Level</div>
+              </div>
+            </div>
+
+            <a href="ai-coach.html" class="btn btn-green btn-full">
+              <i class="fa-solid fa-play"></i> Launch Live AI Coach Demo
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Features Section -->
+  <section id="features" class="section">
+    <div class="container">
+      <div class="text-center mb-8">
+        <span class="badge badge-blue">Three Pillars of Udyam</span>
+        <h2 class="font-display" style="font-size:clamp(2rem, 4vw, 3rem);font-weight:800;margin-top:10px">
+          Engineered for Peak Human Performance
+        </h2>
+        <p style="color:var(--clr-text-muted);max-width:620px;margin:12px auto 0">
+          Combine computational biomechanics, dynamic routine generation, and scientific metabolic nutrition into one unified dashboard.
+        </p>
+      </div>
+
+      <div class="grid gap-6" style="grid-template-columns: repeat(auto-Udyam, minmax(320px, 1fr))">
+        <!-- Pillar 1: AI Sports Coach -->
+        <div class="card card-glow-blue flex" style="flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="width:56px;height:56px;border-radius:var(--radius-md);background:rgba(59,130,246,0.15);color:var(--clr-blue-light);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:20px">
+              <i class="fa-solid fa-brain"></i>
+            </div>
+            <h3 class="font-display" style="font-size:1.4rem;font-weight:800;margin-bottom:10px">AI Sports Coach</h3>
+            <p style="color:var(--clr-text-muted);font-size:0.92rem;line-height:1.65;margin-bottom:20px">
+              Select your sport (Cricket, Football, Tennis, Running, Badminton, Basketball) and receive instant computer vision biomechanical feedback on footwork, stance, and swing accuracy.
+            </p>
+            <div class="flex gap-2" style="flex-wrap:wrap;margin-bottom:24px">
+              <span class="badge badge-blue">Cricket</span>
+              <span class="badge badge-blue">Football</span>
+              <span class="badge badge-blue">Tennis</span>
+              <span class="badge badge-blue">Running</span>
+            </div>
+          </div>
+          <a href="ai-coach.html" class="btn btn-primary btn-full">
+            <i class="fa-solid fa-bullseye"></i> Start Coaching Session
+          </a>
+        </div>
+
+        <!-- Pillar 2: Daily Exercise Guide -->
+        <div class="card card-glow-green flex" style="flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="width:56px;height:56px;border-radius:var(--radius-md);background:rgba(16,185,129,0.15);color:var(--clr-green);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:20px">
+              <i class="fa-solid fa-dumbbell"></i>
+            </div>
+            <h3 class="font-display" style="font-size:1.4rem;font-weight:800;margin-bottom:10px">Daily Exercise Guide</h3>
+            <p style="color:var(--clr-text-muted);font-size:0.92rem;line-height:1.65;margin-bottom:20px">
+              Generate structured, goal-oriented workout routines (Warm-up, Main Set, Cool Down) calibrated to your Udyamness tier, available equipment, and time budget.
+            </p>
+            <div class="flex gap-2" style="flex-wrap:wrap;margin-bottom:24px">
+              <span class="badge badge-green">HIIT</span>
+              <span class="badge badge-green">Hypertrophy</span>
+              <span class="badge badge-green">Mobility</span>
+              <span class="badge badge-green">Endurance</span>
+            </div>
+          </div>
+          <a href="workout.html" class="btn btn-green btn-full">
+            <i class="fa-solid fa-bolt"></i> Generate My Workout
+          </a>
+        </div>
+
+        <!-- Pillar 3: Nutrition Assistant -->
+        <div class="card card-glow-purple flex" style="flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="width:56px;height:56px;border-radius:var(--radius-md);background:rgba(139,92,246,0.15);color:var(--clr-purple-light);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:20px">
+              <i class="fa-solid fa-apple-whole"></i>
+            </div>
+            <h3 class="font-display" style="font-size:1.4rem;font-weight:800;margin-bottom:10px">Nutrition Assistant</h3>
+            <p style="color:var(--clr-text-muted);font-size:0.92rem;line-height:1.65;margin-bottom:20px">
+              Enter your biometrics and dietary profile to receive calculated daily TDEE calories, macro target distributions, hydration goals, and delicious 4-meal blueprints.
+            </p>
+            <div class="flex gap-2" style="flex-wrap:wrap;margin-bottom:24px">
+              <span class="badge badge-purple">Standard</span>
+              <span class="badge badge-purple">High Protein</span>
+              <span class="badge badge-purple">Vegan</span>
+              <span class="badge badge-purple">Keto</span>
+            </div>
+          </div>
+          <a href="nutrition.html" class="btn btn-fire btn-full">
+            <i class="fa-solid fa-utensils"></i> Get My Nutrition Plan
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="section" style="background:var(--clr-bg-2);border-top:1px solid var(--clr-border);border-bottom:1px solid var(--clr-border)">
+    <div class="container">
+      <div class="text-center mb-8">
+        <span class="badge badge-green">Simple 4-Step Process</span>
+        <h2 class="font-display" style="font-size:clamp(2rem, 4vw, 2.8rem);font-weight:800;margin-top:10px">
+          How Udyam Powers Your Journey
+        </h2>
+      </div>
+
+      <div class="grid gap-6" style="grid-template-columns: repeat(auto-Udyam, minmax(240px, 1fr))">
+        <div class="card text-center" style="padding:32px 20px">
+          <div style="width:50px;height:50px;border-radius:50%;background:var(--grad-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-tech);font-weight:900;font-size:1.3rem;margin:0 auto 18px">1</div>
+          <h4 class="font-display" style="font-size:1.1rem;font-weight:700;margin-bottom:8px">Setup Profile</h4>
+          <p style="color:var(--clr-text-muted);font-size:0.86rem">Input your biometric measurements, Udyamness goals, and preferred sports.</p>
+        </div>
+
+        <div class="card text-center" style="padding:32px 20px">
+          <div style="width:50px;height:50px;border-radius:50%;background:var(--grad-green);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-tech);font-weight:900;font-size:1.3rem;margin:0 auto 18px">2</div>
+          <h4 class="font-display" style="font-size:1.1rem;font-weight:700;margin-bottom:8px">AI Customization</h4>
+          <p style="color:var(--clr-text-muted);font-size:0.86rem">Neural algorithms calibrate tailored workouts and meal plans dynamically.</p>
+        </div>
+
+        <div class="card text-center" style="padding:32px 20px">
+          <div style="width:50px;height:50px;border-radius:50%;background:var(--grad-fire);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-tech);font-weight:900;font-size:1.3rem;margin:0 auto 18px">3</div>
+          <h4 class="font-display" style="font-size:1.1rem;font-weight:700;margin-bottom:8px">Train & Analyze</h4>
+          <p style="color:var(--clr-text-muted);font-size:0.86rem">Receive live form correction, posture ratings, and exercise feedback.</p>
+        </div>
+
+        <div class="card text-center" style="padding:32px 20px">
+          <div style="width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,#ec4899,#8b5cf6);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-tech);font-weight:900;font-size:1.3rem;margin:0 auto 18px">4</div>
+          <h4 class="font-display" style="font-size:1.1rem;font-weight:700;margin-bottom:8px">Earn & Level Up</h4>
+          <p style="color:var(--clr-text-muted);font-size:0.86rem">Unlock badges, climb leaderboards, and redeem partner brand coupons.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section" style="position:relative;overflow:hidden">
+    <div class="container">
+      <div class="dash-banner text-center" style="padding:60px 30px">
+        <h2 class="font-display" style="font-size:clamp(2.2rem, 4.5vw, 3.2rem);font-weight:900;margin-bottom:14px">
+          Ready to Unleash Your AI-Driven Athlete?
+        </h2>
+        <p style="max-width:560px;margin:0 auto 32px;font-size:1.1rem;opacity:0.95">
+          Join thousands of athletes leveling up with intelligent form tracking, daily workouts, and precision nutrition.
+        </p>
+        <div class="flex gap-4" style="justify-content:center;flex-wrap:wrap">
+          <a href="profile.html" class="btn btn-lg" style="background:#fff;color:#080b14;font-weight:700">
+            <i class="fa-solid fa-user-plus"></i> Create Free Profile
+          </a>
+          <a href="dashboard.html" class="btn btn-lg btn-outline" style="border-color:rgba(255,255,255,0.4);color:#fff">
+            <i class="fa-solid fa-chart-line"></i> View Dashboard
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-icon"><i class="fa-solid fa-brain"></i></div>
+          <div>Udyam<span>AI</span></div>
+        </a>
+        <p>Your Personal AI Sports, Udyamness & Nutrition Coach. Train smarter, perform better, powered by real-time intelligence.</p>
+        <div class="flex gap-2">
+          <span class="badge badge-blue"><i class="fa-solid fa-shield-check"></i> 100% Client-Side Simulation</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="dashboard.html">Personal Dashboard</a></li>
+          <li><a href="ai-coach.html">AI Sports Coach</a></li>
+          <li><a href="workout.html">Daily Workouts</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Wellness</h4>
+        <ul>
+          <li><a href="nutrition.html">Nutrition Assistant</a></li>
+          <li><a href="challenges.html">Challenges & Rewards</a></li>
+          <li><a href="profile.html">Profile Settings</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Sports Supported</h4>
+        <ul>
+          <li><a href="ai-coach.html">Cricket Coaching</a></li>
+          <li><a href="ai-coach.html">Football Training</a></li>
+          <li><a href="ai-coach.html">Tennis Drills</a></li>
+          <li><a href="ai-coach.html">Running Biomechanics</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>&copy; 2026 Udyam Technologies. All rights reserved.</div>
+      <div class="flex gap-4">
+        <span>Designed with HTML5, CSS3 & Vanilla JavaScript</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Udyam Master Script -->
+  <script src="js/script.js"></script>
+</body>
+</html>
