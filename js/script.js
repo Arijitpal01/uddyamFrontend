@@ -758,11 +758,25 @@ async function startSportsVideoAnalysis() {
 }
 
 function renderBackendAnalysisResults(result) {
-  const scores = Object.values(result.components || {}).filter(value => typeof value === 'number');
+  const components = result.components || {};
   const overall = Number(result.overall_score || 0);
-  setScoreHUD('#circle-tech', '#val-tech', Math.round(scores[0] || overall));
-  setScoreHUD('#circle-mov', '#val-mov', Math.round(scores[1] || overall));
-  setScoreHUD('#circle-perf', '#val-perf', Math.round(scores[2] || overall));
+  const techniqueScore = averageValues([
+    components.lower_body_technique,
+    components.kicking_posture
+  ]) || overall;
+  const movementScore = averageValues([
+    components.movement,
+    components.running_ability,
+    components.consistency
+  ]) || overall;
+  const performanceScore = averageValues([
+    components.balance,
+    components.ball_control,
+    components.ball_interaction
+  ]) || overall;
+  setScoreHUD('#circle-tech', '#val-tech', Math.round(techniqueScore));
+  setScoreHUD('#circle-mov', '#val-mov', Math.round(movementScore));
+  setScoreHUD('#circle-perf', '#val-perf', Math.round(performanceScore));
   const overallBadge = $('#overall-score-badge');
   if (overallBadge) {
     overallBadge.textContent = `${overall}% Overall Score`;
@@ -781,6 +795,70 @@ function renderBackendAnalysisResults(result) {
       return `<div style="background:rgba(255,255,255,0.03);border-left:4px solid ${color};border-radius:var(--radius-sm);padding:14px 16px;display:flex;align-items:flex-start;gap:12px"><i class="fa-solid ${icon}" style="color:${color};font-size:1.15rem;margin-top:2px"></i><div><div style="font-weight:700;font-size:0.92rem;color:var(--clr-text);margin-bottom:2px">${item.title}</div><div style="font-size:0.86rem;color:var(--clr-text-muted)">${item.text}</div></div></div>`;
     }).join('');
   }
+  renderCompleteBackendResponse(result);
+}
+
+function averageValues(values) {
+  const numbers = values.filter(value => typeof value === 'number' && Number.isFinite(value));
+  return numbers.length ? numbers.reduce((sum, value) => sum + value, 0) / numbers.length : 0;
+}
+
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#039;');
+}
+
+function formatBackendValue(value) {
+  if (value === null || value === undefined) return '<span style="color:var(--clr-text-dim)">Not available</span>';
+  if (typeof value !== 'object') return escapeHtml(value);
+  if (Array.isArray(value)) {
+    if (!value.length) return '<span style="color:var(--clr-text-dim)">None</span>';
+    return `<div style="display:grid;gap:6px">${value.map((item, index) => `<div><span style="color:var(--clr-text-dim)">${index + 1}.</span> ${formatBackendValue(item)}</div>`).join('')}</div>`;
+  }
+  return `<div style="display:grid;gap:6px">${Object.entries(value).map(([key, item]) => `
+    <div style="display:grid;grid-template-columns:minmax(150px, 0.35fr) 1fr;gap:12px;border-bottom:1px solid var(--clr-border);padding:5px 0">
+      <span style="color:var(--clr-text-muted)">${escapeHtml(key.replaceAll('_', ' '))}</span>
+      <span style="overflow-wrap:anywhere">${formatBackendValue(item)}</span>
+    </div>`).join('')}</div>`;
+}
+
+function renderCompleteBackendResponse(result) {
+  const details = $('#backend-analysis-details');
+  if (!details) return;
+  const sections = [
+    ['Analysis summary', {
+      success: result.success,
+      sport: result.sport,
+      analysis_mode: result.analysis_mode,
+      overall_score: result.overall_score,
+      kick_events_detected: result.kick_events_detected,
+      warning: result.warning,
+      runtime_error: result.runtime_error
+    }],
+    ['Component scores', result.components],
+    ['Pose quality', result.pose_quality],
+    ['Object detection quality', result.object_detection_quality],
+    ['Extracted features', result.features],
+    ['Running features', result.running_features],
+    ['Ball control features', result.ball_control_features],
+    ['Kicking features', result.kicking_features],
+    ['Saved performance', result.saved_performance]
+  ].filter(([, value]) => value !== undefined);
+  details.innerHTML = `
+    <div style="font-family:var(--font-display);font-weight:800;margin-bottom:10px;color:var(--clr-cyan)">
+      Complete backend analysis output
+    </div>
+    <div style="display:grid;gap:10px">
+      ${sections.map(([title, value]) => `
+        <details style="border:1px solid var(--clr-border);border-radius:var(--radius-sm);padding:10px 12px">
+          <summary style="cursor:pointer;font-weight:700;color:var(--clr-text)">${escapeHtml(title)}</summary>
+          <div style="margin-top:8px;font-size:0.82rem;color:var(--clr-text-muted)">${formatBackendValue(value)}</div>
+        </details>`).join('')}
+    </div>`;
 }
 
 function renderVideoAnalysisResults(sport) {
