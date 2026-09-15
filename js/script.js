@@ -716,7 +716,8 @@ async function startSportsVideoAnalysis() {
     const backendSport = currentCoachSport === 'Running' ? 'athletics' : currentCoachSport.toLowerCase();
     const response = await fetch(`${API_BASE_URL}/api/analyze/${backendSport}`, {
       method: 'POST',
-      body: formData
+      body: formData,
+      signal: AbortSignal.timeout(180000)
     });
     const result = await response.json();
     if (!response.ok) throw new Error(result.detail || result.error || 'Analysis failed.');
@@ -742,7 +743,9 @@ async function startSportsVideoAnalysis() {
       statusBadge.textContent = 'Analysis Failed';
       statusBadge.className = 'badge badge-outline';
     }
-    const message = error instanceof TypeError
+    const message = error.name === 'TimeoutError'
+      ? 'The analysis took too long. Try a shorter video and try again.'
+      : error instanceof TypeError
       ? `AI backend is not reachable${API_BASE_URL ? ` at ${API_BASE_URL}` : ''}. Please try again in a moment.`
       : (error.message || 'Could not analyze the video.');
     showToast(message, 'warn', 7000);
