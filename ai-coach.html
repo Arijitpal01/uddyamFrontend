@@ -92,17 +92,17 @@
       <section class="mb-6">
         <div class="flex-between mb-4">
           <h3 class="font-display" style="font-size:1.25rem;font-weight:800">Select Sport Discipline</h3>
-          <span style="font-size:0.82rem;color:var(--clr-text-muted)">6 Olympic & Athletic Sports Available</span>
+          <span style="font-size:0.82rem;color:var(--clr-text-muted)">4 AI analysis sports available</span>
         </div>
 
         <div class="sport-selection-grid">
-          <div class="sport-select-card selected" data-sport="Cricket">
+          <div class="sport-select-card" data-sport="Cricket" aria-disabled="true" title="Backend analysis is not available for Cricket">
             <div class="sport-emoji">🏏</div>
             <div class="sport-name">Cricket</div>
             <div style="font-size:0.75rem;color:var(--clr-text-dim)">Batting & Bowling</div>
           </div>
 
-          <div class="sport-select-card" data-sport="Football">
+          <div class="sport-select-card selected" data-sport="Football">
             <div class="sport-emoji">⚽</div>
             <div class="sport-name">Football</div>
             <div style="font-size:0.75rem;color:var(--clr-text-dim)">Strike & Control</div>
@@ -126,7 +126,7 @@
             <div style="font-size:0.75rem;color:var(--clr-text-dim)">Cadence & Strike</div>
           </div>
 
-          <div class="sport-select-card" data-sport="Tennis">
+          <div class="sport-select-card" data-sport="Tennis" aria-disabled="true" title="Backend analysis is not available for Tennis">
             <div class="sport-emoji">🎾</div>
             <div class="sport-name">Tennis</div>
             <div style="font-size:0.75rem;color:var(--clr-text-dim)">Serve & Topspin</div>

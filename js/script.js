@@ -5,6 +5,13 @@
 
 'use strict';
 
+const configuredApiBaseUrl = window.UDYAM_API_BASE_URL || (
+  ['localhost', '127.0.0.1'].includes(window.location.hostname)
+    ? ''
+    : 'https://ai-sport-coach-1.onrender.com'
+);
+const API_BASE_URL = configuredApiBaseUrl.replace(/\/+$/, '');
+
 /* ──────────────────────────────────────────────────────────
    1. LOCAL STORAGE & DATA LAYER
    ────────────────────────────────────────────────────────── */
@@ -446,7 +453,7 @@ const SPORT_VIDEO_FEEDBACKS = {
   ]
 };
 
-let currentCoachSport = 'Cricket';
+let currentCoachSport = 'Football';
 let uploadedSportsVideoFile = null;
 let uploadedSportsVideoUrl = null;
 let isAnalyzingVideo = false;
@@ -455,6 +462,10 @@ function initAICoachPage() {
   // Sport Selection Cards
   $$('.sport-select-card').forEach(card => {
     card.addEventListener('click', () => {
+      if (card.dataset.sport === 'Cricket' || card.dataset.sport === 'Tennis') {
+        showToast(`${card.dataset.sport} analysis is not available in the AI backend yet. Choose Football, Badminton, Basketball or Running.`, 'warn', 5000);
+        return;
+      }
       $$('.sport-select-card').forEach(c => c.classList.remove('selected'));
       card.classList.add('selected');
       currentCoachSport = card.dataset.sport;
@@ -669,7 +680,7 @@ function clearSelectedSportsVideo() {
   showToast('Video removed.', 'info', 2000);
 }
 
-function startSportsVideoAnalysis() {
+async function startSportsVideoAnalysis() {
   if (!uploadedSportsVideoFile && !uploadedSportsVideoUrl) {
     showToast('Please select or upload a sports video first.', 'warn');
     return;
@@ -695,50 +706,75 @@ function startSportsVideoAnalysis() {
     statusBadge.className = 'badge badge-outline';
   }
 
-  const steps = [
-    { text: 'Preparing video analysis...', pct: 20 },
-    { text: 'Detecting sports movement...', pct: 45 },
-    { text: 'Analyzing body movement...', pct: 65 },
-    { text: 'Checking technique...', pct: 85 },
-    { text: 'Generating performance feedback...', pct: 100 }
-  ];
+  if (statusText) statusText.textContent = 'Uploading video to the AI engine...';
+  if (progressBar) progressBar.style.width = '35%';
 
-  let currentStep = 0;
-  if (statusText) statusText.textContent = steps[0].text;
-  if (progressBar) progressBar.style.width = `${steps[0].pct}%`;
+  try {
+    const formData = new FormData();
+    formData.append('file', uploadedSportsVideoFile);
+    formData.append('user_id', getUser().name || 'browser-athlete');
+    const backendSport = currentCoachSport === 'Running' ? 'athletics' : currentCoachSport.toLowerCase();
+    const response = await fetch(`${API_BASE_URL}/api/analyze/${backendSport}`, {
+      method: 'POST',
+      body: formData
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.detail || result.error || 'Analysis failed.');
 
-  const interval = setInterval(() => {
-    currentStep++;
-    if (currentStep < steps.length) {
-      if (statusText) statusText.textContent = steps[currentStep].text;
-      if (progressBar) progressBar.style.width = `${steps[currentStep].pct}%`;
-    } else {
-      clearInterval(interval);
-      isAnalyzingVideo = false;
-
-      if (loadingEl) loadingEl.classList.add('hidden');
-      if (feedbackEl) feedbackEl.classList.remove('hidden');
-      if (analyzeBtn) analyzeBtn.classList.add('hidden');
-      if (reanalyzeBtn) reanalyzeBtn.classList.remove('hidden');
-
-      if (statusBadge) {
-        statusBadge.textContent = 'Analysis Complete';
-        statusBadge.className = 'badge badge-green';
-      }
-
-      renderVideoAnalysisResults(currentCoachSport);
-
-      // Award points & activity log
-      const pts = randInt(75, 120);
-      const prog = getProgress();
-      saveProgress({
-        points: prog.points + pts,
-        calories: prog.calories + 45
-      });
-      addActivity(`Uploaded & Analyzed ${currentCoachSport} sports video`, pts, 'fa-film', '#10b981');
-      showToast(`🏆 AI Video Analysis completed! +${pts} Points awarded!`, 'success', 4500);
+    if (loadingEl) loadingEl.classList.add('hidden');
+    if (feedbackEl) feedbackEl.classList.remove('hidden');
+    if (analyzeBtn) analyzeBtn.classList.add('hidden');
+    if (reanalyzeBtn) reanalyzeBtn.classList.remove('hidden');
+    if (statusBadge) {
+      statusBadge.textContent = 'Analysis Complete';
+      statusBadge.className = 'badge badge-green';
     }
-  }, 680);
+    renderBackendAnalysisResults(result);
+    const pts = 100;
+    const prog = getProgress();
+    saveProgress({ points: prog.points + pts, calories: prog.calories + 45 });
+    addActivity(`Uploaded & Analyzed ${currentCoachSport} sports video`, pts, 'fa-film', '#10b981');
+    showToast(`AI Video Analysis completed! +${pts} Points awarded!`, 'success', 4500);
+  } catch (error) {
+    if (loadingEl) loadingEl.classList.add('hidden');
+    if (analyzeBtn) analyzeBtn.disabled = false;
+    if (statusBadge) {
+      statusBadge.textContent = 'Analysis Failed';
+      statusBadge.className = 'badge badge-outline';
+    }
+    const message = error instanceof TypeError
+      ? `AI backend is not reachable${API_BASE_URL ? ` at ${API_BASE_URL}` : ''}. Please try again in a moment.`
+      : (error.message || 'Could not analyze the video.');
+    showToast(message, 'warn', 7000);
+  } finally {
+    isAnalyzingVideo = false;
+  }
+}
+
+function renderBackendAnalysisResults(result) {
+  const scores = Object.values(result.components || {}).filter(value => typeof value === 'number');
+  const overall = Number(result.overall_score || 0);
+  setScoreHUD('#circle-tech', '#val-tech', Math.round(scores[0] || overall));
+  setScoreHUD('#circle-mov', '#val-mov', Math.round(scores[1] || overall));
+  setScoreHUD('#circle-perf', '#val-perf', Math.round(scores[2] || overall));
+  const overallBadge = $('#overall-score-badge');
+  if (overallBadge) {
+    overallBadge.textContent = `${overall}% Overall Score`;
+    overallBadge.className = overall >= 60 ? 'badge badge-green' : 'badge badge-blue';
+  }
+  const items = [
+    ...(result.strengths || []).map(text => ({ title: 'Strength', text, type: 'positive' })),
+    ...(result.weaknesses || []).map(text => ({ title: 'Needs Improvement', text, type: 'warn' })),
+    ...(result.recommendations || []).map(text => ({ title: 'Recommendation', text, type: 'info' }))
+  ];
+  const feedbackList = $('#ai-video-feedback-list');
+  if (feedbackList) {
+    feedbackList.innerHTML = items.map(item => {
+      const color = item.type === 'positive' ? '#10b981' : item.type === 'warn' ? '#f59e0b' : '#3b82f6';
+      const icon = item.type === 'positive' ? 'fa-circle-check' : item.type === 'warn' ? 'fa-triangle-exclamation' : 'fa-circle-info';
+      return `<div style="background:rgba(255,255,255,0.03);border-left:4px solid ${color};border-radius:var(--radius-sm);padding:14px 16px;display:flex;align-items:flex-start;gap:12px"><i class="fa-solid ${icon}" style="color:${color};font-size:1.15rem;margin-top:2px"></i><div><div style="font-weight:700;font-size:0.92rem;color:var(--clr-text);margin-bottom:2px">${item.title}</div><div style="font-size:0.86rem;color:var(--clr-text-muted)">${item.text}</div></div></div>`;
+    }).join('');
+  }
 }
 
 function renderVideoAnalysisResults(sport) {

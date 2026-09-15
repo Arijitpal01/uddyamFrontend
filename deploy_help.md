@@ -8,6 +8,14 @@ This guide provides step-by-step instructions specifically for deploying **Udyam
 
 Udyam is built using pure **HTML5, CSS3, and Vanilla JavaScript** with zero backend or build dependencies. It deploys instantly as a fast, globally-distributed static site.
 
+The project also includes an optional Flask server (`app.py`) for local hosting and
+clean page URLs. The existing `.html` URLs remain available for compatibility.
+
+The deployed frontend sends AI video analysis requests to
+`https://ai-sport-coach-1.onrender.com`. When the app is opened through the local
+Flask server on `localhost` or `127.0.0.1`, requests remain relative and use that
+local server instead.
+
 ```text
 Udyam/
 │
@@ -26,8 +34,45 @@ Udyam/
 │   └── script.js       # Core Engine (LocalStorage, Camera HUD, Generators)
 │
 ├── vercel.json         # Optional Vercel Routing Configuration
+├── app.py              # Flask page server
+├── ai_coach_api.py     # Flask adapter for AI-Sports-Coach APIs
+├── requirements.txt    # Flask dependency
 └── deploy_help.md      # This Deployment Guide
 ```
+
+## 🐍 Run with Flask
+
+From the `Udyam` directory:
+
+```bash
+python -m pip install -r requirements.txt
+python app.py
+```
+
+Open `http://127.0.0.1:5000/` in a browser. The following clean URLs are
+available: `/`, `/dashboard`, `/ai-coach`, `/workout`, `/nutrition`,
+`/challenges`, and `/profile`. The `/health` endpoint can be used for a
+basic server health check.
+
+Use the Flask URL for `ai-coach.html`; do not open the HTML file directly from
+File Explorer or with a static-only live server, because the AI analysis
+request must reach Flask:
+
+```text
+http://127.0.0.1:5000/ai-coach
+```
+
+The AI Coach page sends uploaded videos to the existing AI-Sports-Coach logic
+through these Flask endpoints:
+
+- `POST /api/upload-video`
+- `POST /api/analyze/badminton`
+- `POST /api/analyze/football`
+- `POST /api/analyze/athletics`
+- `POST /api/analyze/basketball`
+- `GET /api/history/<user_id>`
+- `GET /api/history/<user_id>/<sport>`
+- `GET /api/progress/<user_id>/<sport>`
 
 ---
 
