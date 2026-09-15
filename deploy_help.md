@@ -16,6 +16,9 @@ The deployed frontend sends AI video analysis requests to
 Flask server on `localhost` or `127.0.0.1`, requests remain relative and use that
 local server instead.
 
+The Render backend is deployed with Docker so the MediaPipe/OpenCV runtime
+libraries are installed consistently in production.
+
 ```text
 Udyam/
 │
