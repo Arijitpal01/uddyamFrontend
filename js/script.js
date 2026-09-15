@@ -731,6 +731,9 @@ async function startSportsVideoAnalysis() {
       statusBadge.className = 'badge badge-green';
     }
     renderBackendAnalysisResults(result);
+    if (result.analysis_mode === 'degraded' && result.warning) {
+      showToast(result.warning, 'warn', 9000);
+    }
     const pts = 100;
     const prog = getProgress();
     saveProgress({ points: prog.points + pts, calories: prog.calories + 45 });
